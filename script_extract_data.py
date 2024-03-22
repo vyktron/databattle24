@@ -34,7 +34,7 @@ df["texte"] = df["texte"].apply(lambda x: re.sub(r"<[^>]*>", "", x))
 from html import unescape
 df["texte"] = df["texte"].apply(lambda x: unescape(x))
 
-merged_df = df.pivot_table(index=["codelangue", "typedictionnaire", "codeappelobjet"], columns="indexdictionnaire", values="texte", aggfunc=lambda x: ' '.join(x))
+merged_df = df.pivot_table(index=["typedictionnaire", "codeappelobjet", "codelangue"], columns="indexdictionnaire", values="texte", aggfunc=lambda x: ' '.join(x))
 
 # Save the dataframe to a CSV file
 merged_df.to_csv("data.csv")
