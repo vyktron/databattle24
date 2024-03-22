@@ -26,9 +26,6 @@ import pandas as pd
 
 df = pd.DataFrame(data, columns=["id", "codelangue", "typedictionnaire", "codeappelobjet", "indexdictionnaire", "texte"])
 
-# Group the "texte" column by "typedictionnaire", "codeappelobjet" and "indexdictionnaire"
-df = df.groupby(["typedictionnaire", "codelangue", "codeappelobjet"])["texte"].apply(lambda x: " ".join(x)).reset_index()
-
 # Remove html balises in the "texte" column
 import re
 df["texte"] = df["texte"].apply(lambda x: re.sub(r"<[^>]*>", "", x))
@@ -37,5 +34,18 @@ df["texte"] = df["texte"].apply(lambda x: re.sub(r"<[^>]*>", "", x))
 from html import unescape
 df["texte"] = df["texte"].apply(lambda x: unescape(x))
 
+merged_df = df.pivot_table(index=["typedictionnaire", "codeappelobjet", "codelangue"], columns="indexdictionnaire", values="texte", aggfunc=lambda x: ' '.join(x))
+
 # Save the dataframe to a CSV file
-df.to_csv("data.csv", index=False)
+merged_df.to_csv("data.csv")
+
+# Get the data from "tblsolution" and extract "numsolution" and "codetechno"
+cursor.execute("SELECT numsolution, codetechno FROM tblsolution")
+solution_techno = cursor.fetchall()
+
+df = pd.DataFrame(solution_techno, columns=["numsolution", "codetechno"])
+# Group by "codetechno" and create a list of "numsolution"
+df = df.groupby("codetechno")["numsolution"].apply(list).reset_index()
+
+# Save the dataframe to a CSV file
+df.to_csv("solution_techno.csv", index=False)
