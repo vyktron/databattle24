@@ -26,8 +26,8 @@ import pandas as pd
 
 df = pd.DataFrame(data, columns=["id", "codelangue", "typedictionnaire", "codeappelobjet", "indexdictionnaire", "texte"])
 
-# Group the "texte" column by "codeappelobjet" and "indexdictionnaire"
-df = df.groupby(["codelangue", "codeappelobjet"])["texte"].apply(lambda x: " ".join(x)).reset_index()
+# Group the "texte" column by "typedictionnaire", "codeappelobjet" and "indexdictionnaire"
+df = df.groupby(["typedictionnaire", "codelangue", "codeappelobjet"])["texte"].apply(lambda x: " ".join(x)).reset_index()
 
 # Remove html balises in the "texte" column
 import re
