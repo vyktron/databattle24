@@ -40,6 +40,27 @@ def cosine_similarity(emb1, emb2):
     return similarity.item()
 
 
+
+#return id row of dataframe, the most closest answer
+def find_answer_to_query(query, list_emb, nb_ans, model_name, lang):
+
+    query_emb = embeddings(query, 512, model_name, lang)
+
+    cos_sim = []
+    for emb in list_emb:
+        cos_sim.append(cosine_similarity(emb, query_emb))
+
+    id_max_list = []
+    for i in range(nb_ans):
+        id_max = cos_sim.index(max(cos_sim))
+        id_max_list.append(id_max)
+        cos_sim.pop(id_max)
+    
+    return id_max_list
+
+
+
+
 #return most important word in the senteces
 def important_words(sentence, model_name, lang):
 

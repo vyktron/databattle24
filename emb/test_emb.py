@@ -1,34 +1,46 @@
 import pandas as pd
-from emb import embeddings, cosine_similarity, important_words
+from tqdm import tqdm
+from emb import embeddings, find_answer_to_query
 
 
-data_set = ""
+DATA_PATH = "../data.csv"
 LANG = "french"
-MODEL_NAME = "google-bert/bert-base-multilingual-cased"
+#MODEL_NAME = "google-bert/bert-base-multilingual-cased"
+MODEL_NAME = "almanach/camembert-base"
 QUERY = ["Comment faire pour réduire la consommation de mon compresseur d'air comprimé ?", 
          "J'aimerais avoir une régulation optimisée de mon groupe froid"]
 
 
 #get data solution
-df = pd.read_csv('../data.csv')
+df = pd.read_csv(DATA_PATH)
 df = df[(df['typedictionnaire'] == 'sol') & (df['codelangue'] == 2)]
 
 #embedings of all solutions : 
+print("Compute embeddings : ")
 list_emb = []
-for sol in df['texte']:
+i=0
+for sol in tqdm(df['1']):
     
-    list_emb.append(embeddings(sol, 20000000, MODEL_NAME, LANG))
+    list_emb.append(embeddings(sol, 512, MODEL_NAME, LANG))
+    # if i > 10 :
+    #     break
+    # i += 1
     
+print("")
 
-    
-#creat emb of query
-query_emb = embeddings(MODEL_NAME, QUERY[0], LANG)
+#query0
+id_max_list = find_answer_to_query(QUERY[0], list_emb, 5, MODEL_NAME, LANG)
+print("query : ", QUERY[0])
+j = 1
+for i in id_max_list:
+    print("answer ", j, " : ", df.iloc[i]['1'])
+    j += 1
 
-#find the best cos sim:
-cos_sim = []
-for emb in list_emb:
-    cos_sim.append(cosine_similarity(emb, query_emb))
 
-index_max = cos_sim.index(max(cos_sim))
-
-print(df['text'][index_max])
+#query1
+id_max_list = find_answer_to_query(QUERY[1], list_emb, 5, MODEL_NAME, LANG)
+print("query : ", QUERY[1])
+j = 1
+for i in id_max_list:
+    print("answer ", j, " : ", df.iloc[i]['1'])
+    j += 1
