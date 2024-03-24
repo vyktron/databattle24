@@ -81,6 +81,13 @@ class Extractor:
         # Keep only the columns "codeappelobjet" and "codelangue" and "traductiondictionnairecategories"
         df = df[["codeappelobjet", "codelangue", "traductiondictionnairecategories"]]
 
+        # Remove HTML tags and unescape HTML entities
+        df["traductiondictionnairecategories"] = df["traductiondictionnairecategories"].apply(lambda x: re.sub(r"<[^>]*>", "", x))
+        df["traductiondictionnairecategories"] = df["traductiondictionnairecategories"].apply(lambda x: unescape(x))
+
+        # Set the index to "codeappelobjet" and "codelangue"
+        df.set_index(["codeappelobjet", "codelangue"], inplace=True)
+
         if to_csv:
             df.to_csv(self.output_path + "/" + CSV_FILENAME)
         return df
@@ -389,4 +396,6 @@ if __name__ == "__main__":
     df_sol_rex = extractor.extract_solution_rex()
     extractor.extract_sector_solution(df_sol_rex)
     extractor.extract_dictionnaire_categories("uni", "unite") # Units
+    extractor.extract_dictionnaire_categories("per", "periode") # Periods
+    extractor.extract_dictionnaire_categories("mon", "monnaie") # Currencies
 
