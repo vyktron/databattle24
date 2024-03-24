@@ -1,0 +1,417 @@
+numsecteur,codeparentsecteur,codelangue,titre,definition
+2,1,2,Agriculture & Bois,"Le secteur de l'agriculture comprend les grandes cultures, la production de lait, la production de viande de boucherie, l'élevage de porcs, de volailles et de lapins, la viticulture, l'arboriculture et les cultures sous serres chauffées."
+2,1,3,Farming & Wood,"The agricultural sector includes crops, milk production, meat production from cattle, pig farming, poultry and rabbits, viticulture, orchards and crops in heated greenhouses."
+2,1,4,Agricultura y madera,"El sector de la agricultura engloba los grandes cultivos, la producción de leche, la producción de carne de ganado, la cría de cerdos, aves de corral y conejos, la viticultura y los cultivos en invernaderos."
+9,1,2,Agro-alimentaire,"L'industrie agro-alimentaire est le secteur où les matières premières issues de l'agriculture, de l'élevage, de l'arboriculture, de la pêche sont transformées en produits alimentaires destinés à la consommation."
+9,1,3,Food and beverage,"The food and beverage industry is the sector where raw materials from agriculture, livestock, tree crops, fisheries are transformed into food for consumption."
+9,1,4,Agroalimentaria,"La industria agroalimentaria es el sector donde las materias primas nacidas de la agricultura, ganadería, arboricultura, de la pesca, son transformadas en productos alimentarios destinados al consumo."
+18,1,2,Chimie,"Le secteur de la chimie comprend la chimie minérale, la chimie organique, la chimie fine pharmaceutique, les spécialités chimiques (peintures, huiles, colles...), produits de beautés et produits d'entretien."
+18,1,3,Chemistry,"The chemical sector includes organic and inorganic chemistry, pharmaceutical fine chemicals, specialty chemicals (paints, oils, glues ...), beauty products and cleaning products."
+18,1,4,Química,"El sector de la química engloba la química mineral, orgánica, química fina farmacéutica, las especialidades químicas (pinturas, aceites, pegamentos...), productos de belleza y productos de limpieza."
+21,1,2,Industrie lourde,"Le secteur de l'industrie lourde comprend les secteurs du ciment, de la chaux, des hydrocarbures, des matériaux non-ferreux, des mines et des carrières, du raffinage, de la sidérurgie et du verre."
+21,1,3,Heavy industry,"The heavy industry sector includes the cement, lime, oil, non-ferrous materials, mining and quarrying, refining, steel and glass."
+21,1,4,Industria pesada,"El sector de la industria pesada comprende los sectores del cemento, de la cal, de los hidrocarburos, de los materiales no ferrosos, de minas y canteras, del refinado, de la siderurgia y del vidrio."
+33,1,2,Industrie,"Le secteur de l'industrie comprend l'automobile, l'aéronautique, les céramiques, le caoutchouc, l'électronique, la mécanique et la fonderie, la papeterie, le textile et la plasturgie."
+33,1,3,Industry,"The industrial sector includes automotive, aerospace, ceramics, rubber, electronics, mechanical and foundry, paper, textiles and plastics."
+33,1,4,Industria,"El sector de la industria engloba el automóvil, aeronáutica, cerámicas, caucho, electrónica, mecánica y fundición, papelería, textil y plástica."
+44,1,2,Utilities,"Le secteur des ""utilities"" regroupe les activités de Bâtiment et Travaux Publics, de traitement des déchets, d'assainissement de l'eau, de transport et logistique et de production d'énergie."
+44,1,3,Utilities,"The sector of ""utilities"" includes the activities of building and public works, waste treatment, sewage water, transport and logistics and energy production."
+44,1,4,Utilidades,"El sector de las ''utilidades'' engloba las actividades de Edificios y Trabajos públicos, de tratamiento de residuos, de saneamiento del agua, del transporte de logística y la producción de energía."
+50,1,2,Tertiaire et bâtiment,"
+Le secteur tertiaire concerne les bâtiments qui abritent des commerces, des administrations, des activités financières et immobilières ou encore des services aux entreprises et aux particuliers.
+Le secteur résidentiel désigne les bâtiments uniquement réservés à l'habitation."
+50,1,3,Tertiary and building,"
+The tertiary sector is the buildings that house shops, government, financial and real estate activities or services to businesses and individuals.
+The residential means buildings only reserved for habitation."
+50,1,4,Terciario y edificación,"
+El sector terciario engloba todos aquellos edificios que albergan comercios, administración, actividades financieras e inmobiliarias o también servicios de empresas o particulares.
+El sector residencial engloba los edificios únicamente reservados a la habitación."
+3,2,2,Bois,"Le secteur de l'agriculture comprend les grandes cultures, la production de lait, la production de viande de boucherie, l'élevage de porcs, de volailles et de lapins, la viticulture, l'arboriculture et les cultures sous serres chauffées."
+3,2,3,Wood,"The agricultural sector includes crops, milk production, meat production from cattle, pig farming, poultry and rabbits, viticulture, orchards and crops in heated greenhouses."
+3,2,4,Madera,"
+El sector de la agricultura engloba los grandes cultivos, la producción de leche, la producción de carne de ganado, la cría de cerdos, aves de corral y conejos, la viticultura y los cultivos en invernaderos."
+4,2,2,Culture,"Le secteur de l'agriculture comprend les grandes cultures, la production de lait, la production de viande de boucherie, l'élevage de porcs, de volailles et de lapins, la viticulture, l'arboriculture et les cultures sous serres chauffées."
+4,2,3,Culture,"The agricultural sector includes crops, milk production, meat production from cattle, pig farming, poultry and rabbits, viticulture, orchards and crops in heated greenhouses."
+4,2,4,Cultivos,"
+El sector de la agricultura engloba los grandes cultivos, la producción de leche, la producción de carne de ganado, la cría de cerdos, aves de corral y conejos, la viticultura y los cultivos en invernaderos."
+5,2,2,Elevage,"Le secteur de l'agriculture comprend les grandes cultures, la production de lait, la production de viande de boucherie, l'élevage de porcs, de volailles et de lapins, la viticulture, l'arboriculture et les cultures sous serres chauffées."
+5,2,3,Livestock farming,"The agricultural sector includes crops, milk production, meat production from cattle, pig farming, poultry and rabbits, viticulture, orchards and crops in heated greenhouses."
+5,2,4,Ganadería,"El sector de la agricultura engloba los grandes cultivos, la producción de leche, la producción de carne de ganado, la cría de cerdos, aves de corral y conejos, la viticultura y los cultivos en invernaderos."
+6,2,2,Matériel agricole,"Le secteur de l'agriculture comprend les grandes cultures, la production de lait, la production de viande de boucherie, l'élevage de porcs, de volailles et de lapins, la viticulture, l'arboriculture et les cultures sous serres chauffées."
+6,2,3,Agricultural equipment,"The agricultural sector includes crops, milk production, meat production from cattle, pig farming, poultry and rabbits, viticulture, orchards and crops in heated greenhouses."
+6,2,4,Material agrícola,"
+El sector de la agricultura engloba los grandes cultivos, la producción de leche, la producción de carne de ganado, la cría de cerdos, aves de corral y conejos, la viticultura y los cultivos en invernaderos."
+7,2,2,Séchage,"Après la récolte, les grains (blé, maïs, protéagineux, oléagineux…) sont conditionnés puis stockés en silo avant d’être acheminés jusqu'à l’acheteur. Ce conditionnement est nécessaire pour la bonne conservation des grains. Il s’agit de diminuer leur taux d’humidité (par séchage) et leur température (par ventilation) afin d’éviter tout risque de moisissures, d’échauffement et de développement d'insectes. Le séchage agricole est donc une étape essentielle pour la conservation des récoltes, dans le respect des normes sanitaires. 
+ 
+Le séchage peut être fait directement à la ferme (séchoirs agricoles) ou sur le site d’un organisme stockeur (séchoirs industriels). Selon le cas, les caractéristiques et les capacités des séchoirs seront différentes. "
+7,2,3,Drying,"After harvesting, grains (wheat, maize, pulses, oilseeds...) are packaged and stored in silos before being sent to the buyer. This conditioning is necessary for the proper conservation of the grains. This is to reduce the moisture content (drying) and temperature (ventilation) to prevent mold, heating and development of insects. Agricultural drying is an essential step for the conservation of crops, in compliance with the health standards.Drying can be done directly from the farm (agricultural dryers) or on the site of a storage organization (industrial dryers). Depending on the case, the features and capabilities of the dryers will be different."
+7,2,4,Secado,"Después de la cosecha, los granos (trigo, maíz, plantas leguminosas y oleaginosas) son empaquetadas y almacenadas en silos antes de ser enviadas al comprador. Este empaquetamiento es necesario para la buena conservación de los granos. Se trata de disminuir su tasa de humedad (por secado) y su temperatura (por ventilación) con el fin de evitar todo riesgo de moho, de recalentamiento y de proliferación de insectos. El secado agrícola es, por lo tanto, una etapa esencial para la conservación de cosechas, de acuerdo con las normas sanitarias.
+El secado puede ser hecho directamente en la granja (secaderos agrícolas) o sobre el emplazamiento de un organismo de secado (secaderos industriales). Según el caso, las características y las capacidades de los secaderos serán diferentes."
+8,2,2,Serres,"Le secteur de l'agriculture comprend les grandes cultures, la production de lait, la production de viande de boucherie, l'élevage de porcs, de volailles et de lapins, la viticulture, l'arboriculture et les cultures sous serres chauffées."
+8,2,3,Greenhouses,"The agricultural sector includes crops, milk production, meat production from cattle, pig farming, poultry and rabbits, viticulture, orchards and crops in heated greenhouses."
+8,2,4,Invernaderos,"El sector de la agricultura engloba los grandes cultivos, la producción de leche, la producción de carne de ganado, la cría de cerdos, aves de corral y conejos, la viticultura y los cultivos en invernaderos."
+10,9,2,Boissons,"L'industrie agro-alimentaire est le secteur où les matières premières issues de l'agriculture, de l'élevage, de l'arboriculture, de la pêche sont transformées en produits alimentaires destinés à la consommation."
+10,9,3,Beverage,"The food and beverage industry is the sector where raw materials from agriculture, livestock, tree crops, fisheries are transformed into food for consumption."
+10,9,4,Bebidas,"La industria agroalimentaria es el sector donde las materias primas nacidas de la agricultura, ganadería, arboricultura, de la pesca, son transformadas en productos alimentarios destinados al consumo."
+11,9,2,Corps gras,"L'industrie agro-alimentaire est le secteur où les matières premières issues de l'agriculture, de l'élevage, de l'arboriculture, de la pêche sont transformées en produits alimentaires destinés à la consommation."
+11,9,3,Fats,"The food and beverage industry is the sector where raw materials from agriculture, livestock, tree crops, fisheries are transformed into food for consumption."
+11,9,4,Cuerpos grasos,"La industria agroalimentaria es el sector donde las materias primas nacidas de la agricultura, ganadería, arboricultura, de la pesca, son transformadas en productos alimentarios destinados al consumo."
+12,9,2,Fruits et légumes,"L'industrie agro-alimentaire est le secteur où les matières premières issues de l'agriculture, de l'élevage, de l'arboriculture, de la pêche sont transformées en produits alimentaires destinés à la consommation."
+12,9,3,Fruits and vegetables,"The food and beverage industry is the sector where raw materials from agriculture, livestock, tree crops, fisheries are transformed into food for consumption."
+12,9,4,Frutas y legumbres,"La industria agroalimentaria es el sector donde las materias primas nacidas de la agricultura, ganadería, arboricultura, de la pesca, son transformadas en productos alimentarios destinados al consumo."
+13,9,2,Lait,"L'industrie agro-alimentaire est le secteur où les matières premières issues de l'agriculture, de l'élevage, de l'arboriculture, de la pêche sont transformées en produits alimentaires destinés à la consommation."
+13,9,3,Milk,"The food and beverage industry is the sector where raw materials from agriculture, livestock, tree crops, fisheries are transformed into food for consumption."
+13,9,4,Leche,"La industria agroalimentaria es el sector donde las materias primas nacidas de la agricultura, ganadería, arboricultura, de la pesca, son transformadas en productos alimentarios destinados al consumo."
+14,9,2,Produits de la mer,"L'industrie agro-alimentaire est le secteur où les matières premières issues de l'agriculture, de l'élevage, de l'arboriculture, de la pêche sont transformées en produits alimentaires destinés à la consommation."
+14,9,3,Seafood,"The food and beverage industry is the sector where raw materials from agriculture, livestock, tree crops, fisheries are transformed into food for consumption."
+14,9,4,Productos del mar,"La industria agroalimentaria es el sector donde las materias primas nacidas de la agricultura, ganadería, arboricultura, de la pesca, son transformadas en productos alimentarios destinados al consumo."
+15,9,2,Transformation d'aliments,"L'industrie agro-alimentaire est le secteur où les matières premières issues de l'agriculture, de l'élevage, de l'arboriculture, de la pêche sont transformées en produits alimentaires destinés à la consommation."
+15,9,3,Feed conversion,"The food and beverage industry is the sector where raw materials from agriculture, livestock, tree crops, fisheries are transformed into food for consumption."
+15,9,4,Transformación de alimentos,"La industria agroalimentaria es el sector donde las materias primas nacidas de la agricultura, ganadería, arboricultura, de la pesca, son transformadas en productos alimentarios destinados al consumo."
+16,9,2,Travail du grain,"L'industrie agro-alimentaire est le secteur où les matières premières issues de l'agriculture, de l'élevage, de l'arboriculture, de la pêche sont transformées en produits alimentaires destinés à la consommation."
+16,9,3,Grain processing,"The food and beverage industry is the sector where raw materials from agriculture, livestock, tree crops, fisheries are transformed into food for consumption."
+16,9,4,Trabajo del grano,"La industria agroalimentaria es el sector donde las materias primas nacidas de la agricultura, ganadería, arboricultura, de la pesca, son transformadas en productos alimentarios destinados al consumo."
+17,9,2,Viandes,"L'industrie agro-alimentaire est le secteur où les matières premières issues de l'agriculture, de l'élevage, de l'arboriculture, de la pêche sont transformées en produits alimentaires destinés à la consommation."
+17,9,3,Meat,"The food and beverage industry is the sector where raw materials from agriculture, livestock, tree crops, fisheries are transformed into food for consumption."
+17,9,4,Carnes,"La industria agroalimentaria es el sector donde las materias primas nacidas de la agricultura, ganadería, arboricultura, de la pesca, son transformadas en productos alimentarios destinados al consumo."
+19,18,2,Pétrochimie,"Le secteur de la pétrochimie représente les industries traitant et transformant les composés chimiques issus du pétrole. Les produits issus de la pétrochimique sont des plastiques, des fibres, des textiles, des détergents ou encore des emballages alimentaires."
+19,18,3,Petrochemical,"The petrochemicals industry is treating and transforming chemical compounds derived from petroleum. The products are of petrochemical plastics, fibers, textiles, detergents or food packaging."
+19,18,4,Petroquímica,"El sector de la petroquímica representa las industrias que tratan y transforman los compuestos químicos nacidos del petróleo. Los productos nacidos de la petroquímica son los plásticos, fibras, textiles, detergentes así como embalajes alimentarios."
+20,18,2,Pharmacie,"
+L'industrie pharmaceutique est le secteur économique qui regroupe les activités de recherche, de fabrication et de commercialisation des médicaments pour la médecine humaine et vétérinaire.
+Le secteur est fortement concentré autour de grands groupes, comme Sanofi et Adventis."
+20,18,3,Pharmaceutical,"
+The pharmaceutical industry is the economic sector which includes research, manufacturing and marketing of medicines for human and veterinary medicine.
+The industry is highly concentrated around large groups, such as Sanofi and Adventis."
+20,18,4,Farmacia,"
+La industria farmacéutica es el sector de la economía que engloba las actividades de búsqueda, fabricación y de comercialización de los medicamentos para la medicina humana y veterinaria. 
+El sector está fuertemente concentrado alrededor grandes grupos, como Sanofi y Adventis. "
+22,21,2,Aluminium,"
+Le secteur de l'aluminium est compris dans le secteur des minéraux non-ferreux. Il regroupe les entreprises de production et de recyclage de l'aluminium.
+Les principaux acteurs du secteur de l'aluminium sont des groupes miniers (BHP Billiton, Rio Tinto) et des métallurgistes (Alcoa, Hydro)."
+22,21,3,Aluminium,"
+The aluminum industry is in the area of ??non-ferrous minerals. It includes companies producing and recycling of aluminum.
+The main actors in the aluminum industry are mining companies (BHP Billiton, Rio Tinto) and Metal (Alcoa, Hydro)."
+22,21,4,Aluminio,"
+El sector del aluminio se engloba en el sector de los minerales no ferrosos. Reagrupa las empresas de producción y reciclaje de aluminio.
+Los principales actores del sector de aluminio son grupos mineros ( BHP Billiton, Rio Tinto) y las industrias de la metalúrgia (Alcoa, Hydro)."
+23,21,2,Charbon,"
+Le charbon est un combustible fossile d'origine organique. A l'origine de la révolution industrielle, le charbon a été l'énergie fossile la plus exploitée jusqu'au XXème siècle. 
+Etant donné les réserves estimées de charbon, il faut s'attendre à un nouvel âge d'or de cette énergie. "
+23,21,3,Coal,"
+
+Coal is a fossil fuel of organic origin. At the beginning of the industrial revolution, coal was the most exploited until the twentieth century fossil fuels.
+
+Given the estimated coal reserves, we can expect a new golden age of this energy."
+23,21,4,Carbón,"
+El carbón es un combustible fósil de origen orgánico. Al comienzo de la revolución industrial, el carbón ha sido la energía fósil más explotada hasta el siglo XX.
+Teniendo en cuenta las reservas estimadas de carbón, se espera una nueva edad de oro de esta energía."
+24,21,2,Chaux,Le secteur de la chaux regroupe les entreprises productrices de cette matière première. La chaux est obtenue en chauffant des pierres calcaires à très haute température (900 °C).
+24,21,3,Lime,The lime industry includes companies producing the commodity. Lime is obtained by heating limestone at high temperature (900 ° C).
+24,21,4,Cal,El sector de la cal engloba las empresas productoras de esta materia prima. La cal es obtenida calentando piedra caliza a muy alta temperatura (900ºC)
+25,21,2,Ciment,"
+Le secteur regroupe les entreprises productrices de ciment.
+Les principaux acteurs de la production de ciment sont Italcementi Group, Lafarge Ciments, Holcim, Vicat..."
+25,21,3,Cement,"
+The sector includes companies producing cement.
+The main players in the production of cement are Italcementi Group, Lafarge Cement, Holcim, Vicat ..."
+25,21,4,Cemento,"
+El sector reagrupa las empresas productoras de cemento. 
+Los principales actores de la producción de cemento son Italcementi Group, Lafarge Ciments, Holcim, Vicat... "
+26,21,2,Hydrocarbures (oil & gas),"L'industrie pétrolière traite de la chaîne industrielle du pétrole et du gaz naturel, du gisement jusqu'au consommateur."
+26,21,3,Oil & gas,"The oil industry deals with the industrial chain of oil and natural gas, the deposit to the consumer."
+26,21,4,Hidrocarburos (Oil & Gas),"La industria petrolera trata de la cadena industrial del petróleo y del gas natural, de los yacimientos hasta el consumidor."
+27,21,2,Mines et carrières,"Le secteur des mines et des carrières correspond à l'extraction, le stockage et le traitement de matériaux comme le granit, la craie, le calcaire et d'autres matériaux industriels."
+27,21,3,Mining and quarrying,"The mining and quarrying is the extraction, storage and processing of materials such as granite, chalk, limestone and other industrial materials."
+27,21,4,Minas y canteras,"El sector de las mines y canteras corresponde a la extracción, almacenamiento y tratamiento de materiales como el granito, tiza, piedra caliza y otros materiales industriales."
+28,21,2,Non ferreux,"Le BREF classifie les métaux non ferreux en 10 groupes : 
+
+le cuivre (y compris Sn et Be) et ses alliages,
+l'aluminium,
+le zinc, le plomb et le cadmium, (+ Sb, Bi, In, Ge, Ga, As, Se, Te),
+les métaux précieux,
+le mercure,
+les métaux réfractaires,
+les ferroalliages,
+les métaux alcalins et alcalinoterreux,
+le nickel et le cobalt,
+le carbone et le graphite."
+28,21,3,Non ferrous,"BREF classifies the non-ferrous metals into 10 groups:
+
+
+copper (including Be and Sn) and alloys thereof,
+
+aluminum,
+
+zinc, lead and cadmium (+ Sb, Bi, In, Ge, Ga, As, Se, Te)
+
+precious metals,
+
+mercury,
+
+refractory metals,
+
+ferroalloys,
+
+alkali and alkaline earth metals,
+
+nickel and cobalt,
+
+carbon and graphite."
+28,21,4,No ferrosos,"El BREF clasifica los metales no ferrosos en 10 grupos:
+
+el cobre (en donde se engloba Sn y Be) y sus aleaciones.
+el aluminio,
+el zinc, el plomo y el cadmio (+Sb, Bi, In, Ge, Ga, As, Se, Te),
+materiales preciosos,
+mercurio,
+materiales refractarios,
+las ferroaleaciones,
+metales alcalinos y alcalinotérreos,
+níquel y cobalto,
+carbono y grafito. "
+29,21,2,Raffinage,"Le secteur du raffinage concerne les traitements et les transformations du pétrole afin d'obtenir des produits comme le fioul lourd, le gazole, le kérosène..."
+29,21,3,Reffinery,"The refining sector on salaries and transformations of oil to obtain products such as heavy fuel oil, diesel, kerosene ..."
+29,21,4,Refinería,"El sector del refinado engloba los tratamientos y transformación del petróleo con el fin de obtener los productos como el fuel pesado, el gasóleo, el queroseno..."
+30,21,2,Sidérurgie,"Ce secteur est composé principalement de deux activités : 
+
+la production d'acier par hauts fourneaux (à partir principalement de minerais – une part de ferraille étant également recyclée – et de coke de charbon).
+le recyclage de ferraille et la première transformation de l'acier par fours électriques."
+30,21,3,Steel,"This sector comprises two main activities:
+
+steel production in blast furnaces (mainly from ore - a share of scrap is also recycled - and coking coal).
+recycling of scrap and primary steel by electric arc furnaces."
+30,21,4,Siderurgia,"Este sector se compone principalmente de dos actividades:
+
+producción de acero por altos hornos (a partir principalmente de minerales- una parte de ferralla siendo igualmente reciclada. y el coque carbón).
+el reciclaje de ferralla y la primera transformación del acero para hornos eléctricos."
+31,21,2,Tuiles et briques,"Le secteur des tuiles et briques correspond à l'industrie de la terre cuite regroupant des entreprises fabriquant des tuiles, des briques et d'autres produits en terre cuite."
+31,21,3,Tiles and bricks,"The tile and brick sector is terracotta industry grouping companies producing tiles, bricks and other clay products."
+31,21,4,Tejas y ladrillos,"El sector de tejas y ladrillos corresponde a la industria de terracota reagrupando las empresas que fabrican tejas, ladrillos y otros productos en terracota."
+32,21,2,Verre,"
+Le secteur du verre regroupe les entreprises productrices de cette matière première.
+Les principaux acteurs du secteur sont AGC Flatglass Europe, O-I Manufacturing, Saint-Gobain..."
+32,21,3,Glass,"
+The glass sector includes companies producing the commodity.
+The main industry players are Flatglass AGC Europe, OI Manufacturing, Saint-Gobain ..."
+32,21,4,Vidrio,"
+El sector del vidrio engloba las empresas productoras de esta materia prima.
+Los principales actores del sector son AGC Flatglass Europe, O-I Manufacturing, Saint-Gobain..."
+34,33,2,Aéronautique,"Le secteur de l'aéronautique englobe aussi le secteur de l'aviation, l'espace et le naval."
+34,33,3,Aeronautics,"The aerospace industry also includes the aviation, space and naval."
+34,33,4,Aeronáutica,"El sector de la aeronáutica engloba también el sector de la aviación, el espacio y naval."
+35,33,2,Automobile,Le secteur comprend l'industrie automobile et l'industrie ferroviaire.
+35,33,3,Automobile,The sector includes automotive and railway industry.
+35,33,4,Automóvil,El sector engloba la industria del automóvil y la industria ferroviaria.
+36,33,2,Caoutchouc,"Il existe 5 types différents d'acteurs dans l'industrie du caoutchouc : manufacturiers de pneumatiques, fabricants de pièces techniques, fabricants d'articles grand public, fabricants de ruban adhésif et fournisseurs de matières premières."
+36,33,3,Rubber,"There are 5 different types of actors in the rubber industry: tire manufacturers, manufacturers of technical parts, consumer goods manufacturers, tape manufacturers and suppliers of raw materials."
+36,33,4,Caucho,"Existen 5 tipos diferentes de actores en la industria del caucho: fabricantes de neumáticos, fabricantes de piezas técnicas, fabricantes de artículos para el gran público, fabricantes de cinta adhesiva y proveedores de materias primas."
+37,33,2,Céramique,"Il existe 5 types différents de céramiques : les céramiques réfractaires, les céramiques sanitaires, les céramiques technique, les carreaux céramiques, les céramiques traditionnelles (poterie, porcelaine)."
+37,33,3,Céramics,"There are five different types of ceramics: refractory ceramics, sanitary ceramics, technical ceramics, ceramic tiles, traditional ceramics (pottery and porcelain)."
+37,33,4,Cerámica,"Existen 5 tipos de diferentes de cerámicas: las cerámicas refractarias, sanitarias, cerámicas técnicas, azulejos cerámicos, cerámicas tradicionales (alfarería, porcelana)."
+38,33,2,Electronique,"Le secteur de l'électronique correspond à la fabrication de produits informatiques, électroniques, électriques et optiques."
+38,33,3,Electronics,"The electronics industry is the manufacture of computer, electronic, electrical and optical."
+38,33,4,Electrónica,"El sector de la electrónica corresponde a la fabricación de productos informáticos, electrónicos, eléctricos y ópticos."
+39,33,2,Equipements,Le secteur de l'équipement regroupe les industries fabricant des machines et des équipements.
+39,33,3,Equipement,The equipment sector includes the manufacturer of machinery and equipment industries.
+39,33,4,Equipos,El sector de los equipos engloba las industrias que fabrican máquinas y equipos.
+40,33,2,Mécanique et fonderie,"Le secteur comprend la fonderie, le travail des métaux et la construction mécanique."
+40,33,3,Mechanical and foundry,"The sector includes molding, metalworking and mechanical engineering."
+40,33,4,Mecánica y fundición,"El sector engloba la fundición, el trabajo de los metales y la construcción mecánica."
+41,33,2,Papiers/cartons,"Ce secteur est composé de deux principales activités : 
+
+la production et préparation de pâte via l'extraction des fibres de matières premières (extraites du bois mécaniquement ou bien chimiquement, ou bien de papier récupéré de façon mécanique), puis l'épuration, le lavage et le blanchissement des fibres extraites.
+la transformation de la pâte en papier via une machine à papier."
+41,33,3,Pulp and paper,"This sector comprises two main activities:
+
+production and preparation of pulp fibers through extraction of raw material (wood extracted mechanically or chemically, or by mechanically recovered paper), then the cleaning, washing and bleaching of the fibers extracted.
+pulp processing in paper via a paper machine."
+41,33,4,Papel/Cartón,"Este sector está compuesto de dos principales actividades.
+
+la producción y preparación de pasta a través de la extracción de fibras de materias primas (extraídas de la madera mecánicamente, químicamente o bien del papel recuperado de manera mecánica), a continuación la limpieza, el lavado y el blanqueado de fibras extraídas.
+la transformación de la pasta en papel a través de una máquina de papel."
+42,33,2,Plasturgie,"Le secteur de la plasturgie concerne la fabrication de produit finis ou semi-finis en plastique. Il est réparti en cinq grands sous-secteurs : 
+
+la fabrication de plaques, de feuilles, de bandes, de tubes et de profilés
+la fabrication d'emballages (sacs, bouteilles, boîtes...) 
+la fabrication d'éléments pour la construction (portes, volets, stores, plinthes, revêtements de sol et de mur, dalles, baignoires...) 
+la fabrication de pièces techniques (dont les pièces composites) 
+la fabrication de produits de consommation courante (appareils d'éclairage, bandes adhésives, services de table, produits d'hygiène, fournitures de bureau, gadgets...) 
+ 
+De nombreux procédés existent pour transformer ces matériaux plastiques. Chacun permet une transformation différente. On citera par exemple les procédés couramment utilisés : 
+
+
+le moulage par injection, 
+l'extrusion de films ou de profilés, 
+l'extrusion soufflage, 
+le soufflage, 
+le thermoformage, 
+le rotomoulage, 
+le moulage par compression de matière thermodurcissable,
+le moulage de mousse. "
+42,33,3,Plastics,"The plastics industry is related to the manufacture of finished or semi-finished plastic. It is divided into five major sub-sectors:
+
+manufacture of plates, sheets, strips, tubes and profiles
+the manufacture of packaging (bags, bottles, cans ...)
+manufacturing components for construction (doors, shutters, blinds, baseboards, flooring and wall tiles, bathtubs ...)
+the production of technical parts (including composite parts)
+the manufacture of consumer products (lighting, tapes, tableware, hygiene products, office supplies, gadgets ...)
+Many methods exist to transform these plastic materials. Each provides a different transformation. Examples include the commonly used methods:
+
+injection molding,
+film or profile extrusion,
+blow extrusion,
+blow molding,
+thermoforming,
+rotomolding
+compression molding the thermosetting material,
+foam molding."
+42,33,4,Plástico,"El sector del plástico concierne la fabricación de productos acabados o semiacabados en plástico. Está repartido en cinco grandes subsectores:
+
+La fabricación de placas, hojas, bandas, tubos y de perfilados. 
+La fabricación de embalajes (bolsas, botellas, cajas...). 
+La fabricación de elementos para la construcción (puertas, persianas, estores, zócalos, revestimientos de suelo y paredes, losas, bañeras...). 
+La fabricación de piezas técnicas (piezas variadas). 
+La fabricación de productos de consumo corriente (aparatos de iluminación, bandas adhesivas, vajilla, productos de higiene, provisiones de oficina, aparatos...). 
+Numerosos procesos existen para transformar estas materias plásticas. Cada uno permite una transformación diferente, por ejemplo procesos comúnmente utilizados:
+
+Moldeo por inyección 
+Extrusión de películas o perfilado 
+Extrusión por soplado 
+Soplado 
+Termoformado 
+Rotomoldeo 
+Moldeo por compresión de materia termoestable 
+Moldeo de espuma "
+43,33,2,Textile,"Il existe une grande diversité, au sein du secteur textile, d'activités (filature, tissage, ennoblissement…).
+Il est possible de décomposer le secteur textile selon cinq filières : lavage, ennoblissement des fils, ennoblissement des tricots, ennoblissement des tissus et tapis."
+43,33,3,Textile,"There is a great diversity in the textile sector activities (spinning, weaving, finishing ...).
+It is possible to decompose the textile industry into five sectors: washing, son of finishing, finishing knits, finishing fabrics and carpets.
+"
+43,33,4,Textil,"Existen una gran diversidad, en el seno del sector, de actividades (hilado, tejido, ennoblecimiento...).
+Es posible descomponer el sector textil según 5 campos: lavado, ennoblecimiento de hilos, ennoblecimientos de prendas de punto, ennoblecimiento de tejidos y alfombras."
+45,44,2,Bâtiment et Travaux Publics,"
+Le secteur du bâtiment correspond à la construction/rénovation de bâtiments résidentiels, industriels, tertiaires, agricoles et administratifs.
+Le secteur des Travaux Publics représente les entreprises qui construisent, rénovent et entretiennent les réseaux :
+
+de communication (routes, autoroutes, métro, télécom...),
+d'eau,
+de déchets,
+d'énergie (lignes électriques, éclairage public...)."
+45,44,3,Building and Public Works,"
+The building sector is the construction / renovation of residential, industrial, commercial, agricultural and administrative.
+The Public Works sector represents companies who build, renovate and maintain networks:
+
+communication (roads, highways, subways, Telecom ...) ;
+water ;
+waste ;
+energy (power lines, lighting ...)."
+45,44,4,Edificación y trabajos públicos,"El sector de edificio corresponde a la construcción/renovación de edificios residenciales, industriales, terciarios, agrícolas y administrativos.
+El sector de Obras Públicas representa las empresas que construyen, renuevan y mantienen las redes:
+
+comunicación (carreteras, autopistas, metros, telecomunicaciones...)
+agua
+residuos
+energía (líneas eléctricas, iluminación pública...)."
+46,44,2,Déchets,"
+Ce secteur comprend tout ce qui est lié à la valorisation et la réduction des déchets. 
+La réduction et la valorisation des déchets s'appliquent à tous types d'acteurs : industrie, commerce, agriculture, tertiaire, collectivités, administration et santé, gros producteurs de déchets, mais aussi aux plus petits producteurs comme le secteur des logements. "
+46,44,3,Waste,"
+
+This sector includes everything that is related to the recovery and waste reduction.
+
+Reduction and recycling of waste apply to all types of actors: industry, commerce, agriculture, tertiary, community, and health administration, large waste producers, but also to smaller producers such as housing sector."
+46,44,4,Residuos,"
+Este sector engloba todo lo que está ligado a la valorización y reducción de residuos.
+La reducción y la valorización de residuos se aplican a todos los tipos de actores: industria, comercio, agricultura, terciario, comunidades, administración y sanidad, grandes productores de residuos, pero también a los pequeños productores como el sector de viviendas."
+47,44,2,"Eau potable, assainissement","L'assainissement de l'eau comprend la collecte, le traitement des eaux ainsi que la récupération de l'eau de pluie. Ce secteur est essentiel pour les collectivités et les industriels ayant des effluents liquides et des boues à traiter."
+47,44,3,"Fresh water, sanitation","The water sanitation includes the collection, water treatment and recovery of rainwater. This sector is essential for communities and industry with liquid effluent and sludge to be treated."
+47,44,4,"Agua potable, saneamiento","El saneamiento de agua engloba la colecta, el tratamiento de aguas así como la recuperación de agua de lluvia. Este sector es esencial para las comunidades y las industrias que tienen efluentes líquidos y lodos a tratar."
+48,44,2,Logistique,"Le secteur du transport et de la logistique regroupe : 
+
+les sociétés tournées vers le transport de marchandises,
+les sociétés logistiques, qui gèrent et optimisent des flux (matériels, informatiques...), par exemple des stocks pour approvisionner des chaînes de fabrication ou des clients,
+les sociétés tournées vers le transport de voyageurs."
+48,44,3,Logistics,"The transportation and logistics includes:
+
+
+companies transporting goods
+
+logistics companies that manage and optimize flow (equipment, computer ...), for example stocks to supply production lines or customers,
+
+companies passenger transport."
+48,44,4,Logística,"El sector del transporte y la logística agrupa:
+
+a las sociedades orientadas al transporte de mercancías,
+a sociedades logísticas, que generan y optimizan flujos (materiales, informáticos...), por ejemplo, los stocks para aprovisionar las cadenas de fabricación y a los clientes.
+las sociedades orientadas hacia el transporte de pasajeros."
+49,44,2,Production d'énergie,"
+Le secteur de la production d'énergie regroupe des sociétés assurant la gestion de l'énergie et des opérations de maintenance sur différents systèmes (industrie, tertiaire, résidentiel). 
+Ces sociétés ont pour objectif d'améliorer les performances énergétiques d'un site ou d'un bâtiment. "
+49,44,3,Energy production,"
+
+The energy production sector includes companies providing the energy management and maintenance of various systems (industrial, commercial, residential).
+
+These companies aim to improve the energy performance of a site or building."
+49,44,4,Producción de energía,"
+El sector de la producción de energía engloba las sociedades que aseguran la gestión de la energía y las operaciones de mantenimiento en diferentes sectores (industria, terciario, residencial).
+Estas sociedades tienen como objetivo mejorar los rendimientos energéticos de un sitio o de un edificio."
+51,50,2,Bureaux,"Le secteur comprend des locaux servant de bureaux aux entreprises privées et des bâtiments de bureaux publics (par exemple, ceux de l'Etat et des collectivités locales)."
+51,50,3,Offices,"The sector includes local office for private companies and public office buildings (for example, those of the State and local authorities)."
+51,50,4,Oficinas,"El sector engloba los locales que sirven de oficinas a las empresas privadas y los edificios de oficinas públicas (por ejemplo, las del Estado y las comunidades locales)."
+52,50,2,Collectivités,"Le secteur des collectivités regroupe :
+
+les communes,
+les départements,
+les régions,
+les Collectivités d'Outre-Mer (COM)."
+52,50,3,Local government,"The community sector includes:
+
+municipalities,
+departments, 
+regions 
+the Overseas Communities (COM). "
+52,50,4,Comunidades,"El sector de las comunidades engloba:
+
+las comunas,
+los departamentos,
+las regiones,
+las Comunidades de Outre-Mer (COM)"
+53,50,2,Datacenter,Un datacenter est une pièce dédiée à la gestion de données informatiques (bases de données…). Les datacenters sont en particulier utilisés par les hébergeurs web pour installer leurs serveurs et les sauvegardes associées.
+53,50,3,Datacenter,A data center is a room dedicated to the management of computer data (databases ...). Data centers are particularly used by web hosts to install their servers and backups associated.
+53,50,4,Centro de datos,Un centro de datos es una pieza dedicada a la gestión de datos informáticos (base de datos...). Los centros de datos son en particular utilizados para las referencias web para instalar sus servidores y las copias de seguridad asociadas.
+54,50,2,Enseignement,"Le secteur comprend les bâtiments de l'enseignement primaire, secondaire et supérieur ainsi que les activités de formation continue ou toute autre activité de formation."
+54,50,3,Schools,"The sector includes the buildings of the primary, secondary and higher education as well as training activities or other training activity education."
+54,50,4,Educación,"El sector engloba los edificios de la educación primaria, secundaria y superior así como las actividades de formación continua o cualquier otra formación."
+55,50,2,Grandes et Moy. Surfaces,Le secteur comprend tous les locaux de commerce de gros ou de commerce de détail.
+55,50,3,Supermarkets,The sector includes all local wholesale or retail.
+55,50,4,Grandes y medianas superficies,El sector engloba todos los locales de comercio al por mayor o al por menor.
+56,50,2,Hôtel - Restaurant,"Le secteur comprend les cafés, les restaurants ainsi que les établissements d'hébergement."
+56,50,3,Hotel - Restaurant,"The sector includes cafes, restaurants and accommodation establishments."
+56,50,4,Hotel-Restaurante,"El sector engloba los cafés, los restaurantes así como los establecimientos de alojamiento."
+57,50,2,Résidentiel,Le secteur résidentiel désigne les bâtiments réservés à l'habitation et non pas aux activités commerciales ou aux services.
+57,50,3,Residential,The residential sector means the buildings reserved for the residence and not for commercial activities or services.
+57,50,4,Residencial,El sector residencial designa los edificios reservados a la habitación y no sólo a las actividades comerciales o servicios.
+58,50,2,Santé,"Le secteur comprend les établissements de santé tels que les hôpitaux ou les cliniques, ainsi que les centres d'accueil pour personnes handicapées, crèches et activités thermales."
+58,50,3,Health,"The sector includes health care facilities such as hospitals or clinics, and centers for the disabled, childcare and spa activities."
+58,50,4,Salud,"El sector engloba los establecimientos de sanidad tales como hospitales o las clínicas, así como los centros de bienvenida para personas con problemas y actividades termales."
+59,50,2,Thermalisme,"Le secteur comprend l'ensemble des sites exploitants une source thermale appelés les stations thermales.
+Contrairement aux cures par talassothérapie, qui utilisent de l'eau de mer, l'eau utilisée dans les sources thermales provient de sources d'eau minérale. Celles-ci produisent aussi des boues et du gaz, utilisés pour les cures.
+ 
+La médecine thermale permet de traiter 12 grands domaines thérapeutiques :
+
+La rhumatologie,
+Les affections des voies respiratoires,
+Les maladies cardio-vasculaires,
+La phlébologie,
+Les affections psychosomatiques,
+Les affections urinaires et les maladies métaboliques,
+La gynécologie,
+Les affections digestives,
+Les troubles du développement chez l’enfant,
+La dermatologie,
+Les affections de la muqueuse bucco-linguale,
+La neurologie.
+"
+59,50,3,Thermalisme,Le secteur comprend l'ensemble des  sites exploitants une source thermale c'est-à-dire les stations thermales.
+59,50,4,Thermalisme,Le secteur comprend l'ensemble des  sites exploitants une source thermale c'est-à-dire les stations thermales.
