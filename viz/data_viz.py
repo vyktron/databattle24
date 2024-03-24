@@ -38,6 +38,32 @@ class DataVisualizer:
         plt.savefig(self.img_folder + 'sector_solution_hist.png')
         plt.show()
 
+        # Do the opposite, count the number of appearances of each solution
+        # Create a dictionary to count the number of appearances of each solution
+        solution_count = {}
+        for l in df['solutions']:
+            if isinstance(l, float):
+                continue
+            else:
+                for i in l:
+                    if i in solution_count:
+                        solution_count[i] += 1
+                    else:
+                        solution_count[i] = 1
+        
+        # Create an histogram to show the number of sectors that have a certain number of appearances
+        histogram = [0 for i in range(max(solution_count.values())+1)]
+        for i in solution_count.values():
+            histogram[i] += 1
+        
+        plt.bar(range(1, len(histogram)), histogram[1:])
+        plt.xlabel('Number of appearances')
+        plt.ylabel('Number of solutions')
+        plt.title('Histogram of number of sectors per solution')
+        plt.savefig(self.img_folder + 'solution_sector_hist.png')
+        plt.show()
+
+
 # Usage
 if __name__ == "__main__":
     data_viz = DataVisualizer('viz/img/')

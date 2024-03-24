@@ -1,46 +1,16 @@
-codeappelobjet,codelangue,traductiondictionnairecategories
-2,2,Euro
-2,3,Euro
-2,4,Euro
-3,2,Dollar US
-3,3,US dollar
-3,4,Dólar US
-4,2,Dollar australien
-4,3,Australian dollar
-4,4,Dólara ustraliano
-5,2,Dollar canadien
-5,3,Canadian dollar
-5,4,Dólar canadiense
-6,2,Livre anglaise
-6,3,British Pound
-6,4,Libra inglesa
-7,2,Roupie indienne
-7,3,Indian rupee
-7,4,Rupia India
-8,2,Couronne suèdoise
-8,3,Swedish Crown
-8,4,Corona sueca
-9,2,Franc français
-9,3,French Franc
-9,4,Franco francés
-10,2,Yen japonais
-10,3,Japanese Yen
-10,4,Yen japonés
-11,2,Franc suisse
-11,3,Swiss Franc
-11,4,Franco suizo
-12,2,Ringgit malaisien
-12,3,Malaysian Ringgit
-12,4,Ringgit malayo
-13,2,Real brésilien
-13,3,Brazilian Real
-13,4,Real brasileño
-14,2,1 Million INR
-14,3,1 Million INR
-14,4,1 Millón INR
-15,2,Dinar algérien
-15,3,Algerian Dinar
-15,4,Dinar argelino
-16,2,Won sud-coréen
-16,3,South Korean Won
-16,4,Won surcoreano
+codemonnaie,monnaie,rate
+2,EUR,1.0
+3,USD,1.08
+4,AUD,1.66
+5,CAD,1.47
+6,GBP,0.858
+7,INR,90.28
+8,SEK,11.41
+9,FRF,
+10,JPY,163.84
+11,CHF,0.971
+12,MYR,5.13
+13,BRL,5.39
+14,LACS,
+15,DZD,146.66
+16,KRW,1452.5

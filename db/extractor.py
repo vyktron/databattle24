@@ -2,6 +2,7 @@ import mysql.connector
 import pandas as pd
 import re
 from html import unescape
+import requests
 
 class Extractor:
     """
@@ -250,7 +251,7 @@ class Extractor:
         
         if type_code == "uni" or type_code == "per":
             # Select the row where the value is equal to the parameter value
-            self.cursor.execute("SELECT traductiondictionnairecategories FROM tbldictionnairecategories WHERE typedictionnairecategories = %s AND codelangue = %s AND codeappelobjet = %s", (type_code, codelangue, value))
+            self.cursor.execute("SELECT traductiondictionnairecategories FROM tbldictionnairecategories WHERE typedictionnairecategories = %s AND codelangue = %s AND codeappelobjet = %s", (type_code, str(codelangue), str(value)))
             data = self.cursor.fetchall()
         else :
             # Select the row in tblmonnaie where the value is equal to the parameter value
@@ -387,6 +388,44 @@ class Extractor:
 
         return df_sec_sol
 
+    def extract_monnaie(self, to_csv : bool=True) -> pd.DataFrame:
+        """
+        Get data from tblmonnaie in order to have a list of monnaie and their associated code
+
+        Parameters:
+        -----------
+            to_csv (bool): If True, save the result to a CSV file
+
+        Returns:
+        -------
+            pd.DataFrame: A DataFrame with the extracted data
+        """
+
+        CSV_FILENAME = "monnaie.csv"
+
+        # Select all rows from tblmonnaie
+        self.cursor.execute("SELECT * FROM tblmonnaie")
+        data = self.cursor.fetchall()
+        df = pd.DataFrame(data, columns=["codemonnaie", "monnaie"])
+
+        # Get rates of the currencies in euros using the API https://api.exchangerate-api.com/v4/latest/EUR
+        response = requests.get("https://api.exchangerate-api.com/v4/latest/EUR")
+        rates = response.json()["rates"]
+
+        # Add a column "rate" to get the rate of the currency in euros
+        df["rate"] = df["monnaie"].apply(lambda x: rates.get(x, None))
+
+        # Set the index to "codemonnaie"
+        df.set_index("codemonnaie", inplace=True)
+
+        # Remove the first row
+        df.drop(index=1, inplace=True)
+
+        if to_csv:
+            df.to_csv(self.output_path + "/" + CSV_FILENAME)
+
+        return df
+
 if __name__ == "__main__":
     extractor = Extractor()
     extractor.extract_solution()
@@ -395,7 +434,7 @@ if __name__ == "__main__":
     extractor.extract_sectors()
     df_sol_rex = extractor.extract_solution_rex()
     extractor.extract_sector_solution(df_sol_rex)
-    extractor.extract_dictionnaire_categories("uni", "unite") # Units
+    df_unit = extractor.extract_dictionnaire_categories("uni", "unite") # Units
     extractor.extract_dictionnaire_categories("per", "periode") # Periods
-    extractor.extract_dictionnaire_categories("mon", "monnaie") # Currencies
+    extractor.extract_monnaie() # Currencies
 
