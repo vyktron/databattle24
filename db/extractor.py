@@ -415,6 +415,11 @@ class Extractor:
         # Add a column "rate" to get the rate of the currency in euros
         df["rate"] = df["monnaie"].apply(lambda x: rates.get(x, None))
 
+        # For "FRF" (French Franc)
+        df.loc[df["monnaie"] == "FRF", "rate"] = 6.55957
+        # For "LACS"
+        df.loc[df["monnaie"] == "LACS", "rate"] = 14029.14
+
         # Set the index to "codemonnaie"
         df.set_index("codemonnaie", inplace=True)
 
