@@ -48,15 +48,74 @@ class Extractor:
         # Pivot table to have one row per (typedictionnaire, codeappelobjet, codelangue) combination
         pivot_df = df.pivot_table(index=["num"+table_name, "codelangue"], columns="indexdictionnaire", values="texte", aggfunc=lambda x: ' '.join(x))
         
-
         # Rename the columns "1" into "titre" and "2" into "definition", "5" into "application"
         pivot_df.rename(columns={1: "titre", 2: "definition", 5: "application"}, inplace=True)
 
         # Save the result to a CSV file
         if to_csv:
             pivot_df.to_csv(self.output_path + "/" + CSV_FILENAME)
-
         return pivot_df
+    
+    def extract_dictionnaire_categories(self, type : str="uni", table_name : str="unite", to_csv : bool=True) -> pd.DataFrame:
+        """
+        Extract data from tbldictionnairecategories table and save it to a CSV file
+        More precisely, we extract the columns "typedictionnairecategories", "codeappelobjet", "codelangue", "indexdictionnairecategories", and the associated "texte"
+        and save it to a CSV file
+
+        Parameters:
+        -----------
+            type (str): The type of dictionnary to extract. Can be "uni" for units, "per" for periods, "mon" for currencies, etc.
+            table_name (str): The name of the table to save the data to (in CSV format or in a database table)
+        Returns:
+        -------
+            pd.DataFrame: A DataFrame with the extracted data
+        """
+
+        CSV_FILENAME = table_name + ".csv"
+
+        # Select all rows where typedictionnairecategories is either "uni" or "per"
+        self.cursor.execute("SELECT * FROM tbldictionnairecategories WHERE typedictionnairecategories = %s AND indexdictionnairecategories=1", (type,))
+        data = self.cursor.fetchall()
+        df = pd.DataFrame(data, columns=["id", "codelangue", "typedictionnairecategories", "codeappelobjet", "indexdictionnairecategories", "traductiondictionnairecategories"])
+
+        # Keep only the columns "codeappelobjet" and "codelangue" and "traductiondictionnairecategories"
+        df = df[["codeappelobjet", "codelangue", "traductiondictionnairecategories"]]
+
+        if to_csv:
+            df.to_csv(self.output_path + "/" + CSV_FILENAME)
+        return df
+    
+    def extract_solution(self, to_csv : bool=True) -> pd.DataFrame:
+        """
+        Extract data from tbldictionnaire table and from tblsolution as well (jaugecoutsolution, jaugegainsolution)
+        
+        Returns:
+        -------
+            pd.DataFrame: A DataFrame with the extracted data
+        """
+
+        df_sol_dict = self.extract_dictionnaire()
+
+        # Select all rows from tblsolution
+        self.cursor.execute("SELECT numsolution, jaugecoutsolution, jaugegainsolution FROM tblsolution")
+        data = self.cursor.fetchall()
+        df_sol = pd.DataFrame(data, columns=["numsolution", "jauge_cout", "jauge_gain"])
+        # Set the index to "numsolution"
+        df_sol.set_index("numsolution", inplace=True)
+        # Set the index to "numsolution" in df_sol_dict
+        df_sol_dict.reset_index(inplace=True)
+        df_sol_dict.set_index("numsolution", inplace=True)
+        # Merge the two dataframes
+        df = pd.merge(df_sol, df_sol_dict, on="numsolution", how="right")
+
+        # Set the index to "numsolution" and "codelangue" and transform the column "codelangue" to int
+        df.set_index("codelangue", append=True, inplace=True)
+
+        # Save the result to a CSV file
+        if to_csv:
+            df.to_csv(self.output_path + "/solution.csv")
+        
+        return df
 
     def extract_techno_solution(self) -> pd.DataFrame:
         """
@@ -261,14 +320,14 @@ class Extractor:
         return df
 
 
-    def extract_sector_solution(self, df_rex_sol : pd.DataFrame, to_csv : bool=True) -> pd.DataFrame:
+    def extract_sector_solution(self, df_sol_rex : pd.DataFrame, to_csv : bool=True) -> pd.DataFrame:
         """
         Get data from tblsecteur in order to link sectors to solutions
-        We will use the df_rex_sol DataFrame that links solutions to rex and "get_rex_sectors" to link rex to sectors
+        We will use the df_sol_rex DataFrame that links solutions to rex and "get_rex_sectors" to link rex to sectors
 
         Parameters:
         -----------
-            df_rex_sol (pd.DataFrame): The DataFrame that links solutions to rex
+            df_sol_rex (pd.DataFrame): The DataFrame that links solutions to rex
             to_csv (bool): If True, save the result to a CSV file
         
         Returns:
@@ -282,14 +341,14 @@ class Extractor:
         df_rex_sec.drop(index=1, inplace=True)
 
         # Get the list of solutions for each rex
-        df_rex_sol = df_rex_sol.reset_index()
-        df_rex_sol = df_rex_sol.groupby("numrex")["numsolution"].apply(list).reset_index()
-        df_rex_sol.set_index("numrex", inplace=True)
+        df_sol_rex = df_sol_rex.reset_index()
+        df_sol_rex = df_sol_rex.groupby("numrex")["numsolution"].apply(list).reset_index()
+        df_sol_rex.set_index("numrex", inplace=True)
         # Remove all other columns than "numsolution"
-        df_rex_sol = df_rex_sol[["numsolution"]]
+        df_sol_rex = df_sol_rex[["numsolution"]]
         
         # Merge the two dataframes (inner because there are rex without solutions and vice versa)
-        df_sec_sol = pd.merge(df_rex_sec, df_rex_sol, on="numrex", how="inner")
+        df_sec_sol = pd.merge(df_rex_sec, df_sol_rex, on="numrex", how="inner")
         # Reset the index and remove "numrex" and rename the column "codesecteur" into "numsecteur" and "solutions" into "solutions"
         df_sec_sol.reset_index(inplace=True) ; df_sec_sol.drop(columns="numrex", inplace=True)
         df_sec_sol.rename(columns={"codesecteur": "numsecteur", "numsolution": "solutions"}, inplace=True)
@@ -323,10 +382,11 @@ class Extractor:
 
 if __name__ == "__main__":
     extractor = Extractor()
-    extractor.extract_dictionnaire() # Solutions
+    extractor.extract_solution()
     extractor.extract_dictionnaire("tec", "technologie") # Technologies
     extractor.extract_techno_solution()
     extractor.extract_sectors()
-    df_rex_sol = extractor.extract_solution_rex()
-    extractor.extract_sector_solution(df_rex_sol)
+    df_sol_rex = extractor.extract_solution_rex()
+    extractor.extract_sector_solution(df_sol_rex)
+    extractor.extract_dictionnaire_categories("uni", "unite") # Units
 
