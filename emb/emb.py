@@ -2,10 +2,13 @@ import torch
 import torch.nn.functional as F
 from transformers import AutoTokenizer, AutoModel
 from nltk.corpus import stopwords
+import pandas as pd
+import numpy as np
 
 #import nltk
 #nltk.download('stopwords')
 
+TOKENIZERS_PARALLELISM = True
 
 #embeddings
 def embeddings(sentence, max_length, model_name, lang):
@@ -85,3 +88,23 @@ def important_words(sentence, model_name, lang):
     important_words = [tokens[i] for i in top_indices]
 
     return important_words
+
+
+
+def stock_embeddings(list_emb):
+
+    list_emb = np.concatenate([emb.numpy().reshape(1, -1) for emb in list_emb])
+
+    df = pd.DataFrame(list_emb)
+    csv_file_path = "embeddings.csv"
+    df.to_csv(csv_file_path, index=False)
+
+    print("embeddings stock in embeddings.csv")
+
+
+def load_embeddings(csv_path):
+
+    df = pd.read_csv(csv_path)
+    list_emb = df.values.tolist()
+
+    return list_emb
