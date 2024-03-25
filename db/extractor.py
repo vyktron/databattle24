@@ -164,7 +164,7 @@ class Extractor:
 
         return df
 
-    def extract_sectors(self) -> pd.DataFrame:
+    def extract_sectors(self, to_csv : bool=True) -> pd.DataFrame:
         """
         Get the sectors association between the sector code and the sector name by extracting the data from tblsecteur
         and using tbldictionnaire to get all information about the sector ("chiffre clés", "définition",...)
@@ -196,8 +196,9 @@ class Extractor:
         # Set the index to "numsecteur"
         df.set_index("numsecteur", inplace=True)
         # Save the result to a CSV file
-        df.to_csv(self.output_path + "/" + CSV_FILENAME)
 
+        if to_csv:
+            df.to_csv(self.output_path + "/" + CSV_FILENAME)
         return df
 
     def get_rex_sectors(self) -> pd.DataFrame:
