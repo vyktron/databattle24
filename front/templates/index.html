@@ -5,16 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FastAPI Eco</title>
     <link rel="stylesheet" href="{{ url_for('static', path='/style.css') }}">
-    <style>
-        .sub-options {
-            display: none;
-        }
-    </style>
 </head>
 <body>
     <div class="container">
         <div class="content">
             <h1>Interface Utilisateur Écologique</h1>
+            <input type="text" id="selected_value" placeholder="Choisissez votre secteur" readonly>
+
+            <table id="nested_table" class="nested-table">
+                <tbody>
+                    {% for option in dropdown_options %}
+                        <tr>
+                            <td>
+                                {% if option.get('sub_options') %}
+                                    <button class="toggle-button">+</button>
+                                {% endif %}
+                            </td>
+                            <td class="options">{{ option.name }}</td>
+                        </tr>
+                        {% if option.get('sub_options') %}
+                            {% for sub_secteur in option.sub_options %}
+                                <tr class="sub-option hidden" data-parent="{{ option.name }}">
+                                    <td></td>
+                                    <td>{{ sub_secteur.name }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
             <form action="/submit/" method="post">
                 <div>
                     <label for="dropdown">Choisissez une option:</label>
@@ -49,23 +68,59 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var dropdown = document.getElementById('dropdown');
-            var subOptions = document.querySelectorAll('.sub-options');
+            var dropdownOptions = document.querySelectorAll('.options');
+            var selectedValue = document.getElementById('selected_value');
+            var nestedTable = document.getElementById('nested_table');
+            var toggleButtons = document.querySelectorAll('.toggle-button');
+            var subOptions = document.querySelectorAll('.sub-option');
+            var input = document.getElementById('selected_value'); // Add this line
+            
+            nestedTable.style.display = 'none';
 
             dropdown.addEventListener('change', function() {
-                var selectedOption = this.value;
+                selectedValue.value = this.value;
+                nestedTable.style.display = 'none';
+            });
 
-                // Cacher toutes les sous-options
-                subOptions.forEach(function(subOption) {
-                    subOption.style.display = 'none';
-                    subOption.classList.add('hidden');
+            toggleButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    /* Get the parent option of the clicked button */
+                    var parentOption = this.parentElement.nextElementSibling.textContent;
+                    /* Get all the sub-options of the parent option */
+                    var subOptions = document.querySelectorAll('.sub-option[data-parent="' + parentOption + '"]');
+                    /* Toggle the visibility of the sub-options */
+                    subOptions.forEach(function(subOption) {
+                        subOption.classList.toggle('hidden');
+                    });
+                    /* Change the button text to show the correct symbol */
+                    this.textContent = this.textContent === '+' ? '-' : '+';
                 });
+            });
 
-                // Afficher les sous-options correspondant à l'option sélectionnée
-                var selectedSubOptions = document.querySelectorAll('.sub-options[data-parent="' + selectedOption + '"]');
-                selectedSubOptions.forEach(function(subOption) {
-                    subOption.style.display = 'block';
-                    subOption.classList.remove('hidden');
+            subOptions.forEach(function(subOption) {
+                subOption.addEventListener('click', function() {
+                    /* Remove empty spaces and new lines from the clicked sub-option */
+                    var text = this.textContent.replace(/\s/g, '');
+                    selectedValue.value = text; // Update the input value with the clicked sub-option
+                    nestedTable.style.display = 'none';
                 });
+            });
+            
+            dropdownOptions.forEach(function(option) {
+                option.addEventListener('click', function() {
+                    /* Remove empty spaces and new lines from the clicked option */
+                    var text = this.textContent.replace(/\s/g, '');
+                    selectedValue.value = text; // Update the input value with the clicked option
+                    nestedTable.style.display = 'none';
+                });
+            });
+
+            input.addEventListener('click', function() {
+                if (nestedTable.style.display === 'none') {
+                    nestedTable.style.display = 'block';
+                } else {
+                    nestedTable.style.display = 'none';
+                }
             });
         });
     </script>

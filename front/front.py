@@ -29,7 +29,7 @@ dropdown_options = []
 for data in names_data:
     option = {'name': data['name']}  # Ajout du nom principal
     if data.get('sub_secteurs'):  # Vérification s'il y a des sous-options
-        sub_options = [{'name': f"-- {sub_data['name']}", 'value': sub_data['name']} for sub_data in data['sub_secteurs']]
+        sub_options = [{'name': f"{sub_data['name']}", 'value': sub_data['name']} for sub_data in data['sub_secteurs']]
         option['sub_options'] = sub_options
     dropdown_options.append(option)
 

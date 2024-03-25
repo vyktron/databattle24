@@ -34,8 +34,6 @@ def get_name():
             name = sec_fr.loc[sub, "titre"]
             list_name[i-1]["sub_secteurs"].append({"name":name, "code":sub})
 
-    list_name.insert(0, {"name":"Choisissez votre secteur", "code":0})
-
     return list_name
 
 x=get_name()
