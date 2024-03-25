@@ -133,15 +133,22 @@ class DataVisualizer:
             else:
                 solution_count[i[0]] = 1
 
-        solutions = list(solution_count.keys())
-        counts = list(solution_count.values())
-
         # Create a histogram to show the number of numrex for each solution
-        plt.bar(solutions, counts)
-        plt.xlabel('Solution')
-        plt.ylabel('Number of numrex')
+        histogram = [0 for i in range(max(solution_count.values())+1)]
+        for i in solution_count.values():
+            histogram[i] += 1
+
+        mean = sum([i*j for i, j in enumerate(histogram)]) / sum(histogram)
+
+        # Agregate to have classes width of 5
+        histogram = [sum(histogram[i:i+5]) for i in range(0, len(histogram), 5)]
+        
+        plt.axvline(mean, color='r', linestyle='dashed', linewidth=1)
+        plt.bar(range(3, 5*len(histogram), 5), histogram, width=4)
+        plt.xlabel('Number of numrex')
+        plt.ylabel('Number of solutions')
         plt.title('Histogram of number of numrex per solution')
-        plt.savefig(self.img_folder + 'solution_numrex_hist.png')
+        plt.savefig(self.img_folder + 'solution_rex_hist.png')
         plt.show()
 
 # Usage
