@@ -36,19 +36,6 @@
             </table>
             <form action="/submit/" method="post">
                 <div>
-                    <label for="dropdown">Choisissez une option:</label>
-                    <select id="dropdown" name="selected_option">
-                        {% for option in dropdown_options %}
-                            <option value="{{ option.name }}">{{ option.name }}</option>
-                            {% if option.get('sub_options') %}
-                                {% for sub_option in option.sub_options %}
-                                    <option class="sub-options" data-parent="{{ option.name }}" value="{{ sub_option.value }}">{{ sub_option.name }}</option>
-                                {% endfor %}
-                            {% endif %}
-                        {% endfor %}
-                    </select>
-                </div>
-                <div>
                     <label for="user_input">Entrez votre texte:</label>
                     <textarea id="user_input" name="user_input" rows="4" cols="50"></textarea>
                 </div>
@@ -67,7 +54,6 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            var dropdown = document.getElementById('dropdown');
             var dropdownOptions = document.querySelectorAll('.options');
             var selectedValue = document.getElementById('selected_value');
             var nestedTable = document.getElementById('nested_table');
@@ -76,11 +62,6 @@
             var input = document.getElementById('selected_value'); // Add this line
             
             nestedTable.style.display = 'none';
-
-            dropdown.addEventListener('change', function() {
-                selectedValue.value = this.value;
-                nestedTable.style.display = 'none';
-            });
 
             toggleButtons.forEach(function(button) {
                 button.addEventListener('click', function() {
