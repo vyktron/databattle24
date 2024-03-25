@@ -85,3 +85,38 @@ button:hover {
 .hidden {
     display: none;
 }
+
+
+/* Styles for the nested table */
+.nested-table {
+    display: none;
+    margin-left: 20px;
+}
+
+/* Styles for the input field */
+#selected_value {
+    width: 30%;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: rgb(243, 243, 243);
+    border: 2px solid rgb(211, 211, 211);
+    text-align: left;
+}
+
+/* Styles for the toggle button */
+.toggle-button {
+    background-color: white;
+    color: grey;
+    border:rgb(255, 255, 255);
+    padding: 3px 8px; /* Adjust the padding to make the button smaller */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 50%; /* Add border-radius to make the button round */
+}
+.toggle-button:hover {
+    background-color: lightgrey;
+}
