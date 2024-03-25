@@ -1,0 +1,87 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8f7;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    width: 80%;
+    margin: 50px auto;
+}
+
+.content {
+    flex: 1;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar {
+    flex: 1;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-left: 20px;
+}
+
+h1 {
+    color: #4caf50;
+}
+
+h2 {
+    color: #4caf50; /* Couleur du titre "Solution" */
+}
+
+form {
+    margin-top: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #4caf50;
+}
+
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="text"] {
+    width: 80px; /* Taille légèrement plus grande */
+    padding: 8px; /* Ajustement du padding */
+    text-align: center; /* Centrage du texte */
+    border-radius: 10px; /* Bords arrondis */
+    border: 1px solid #ccc; /* Bordure */
+    outline: none; /* Suppression de la bordure */
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.centered {
+    text-align: center;
+}
+
+/* Ajouter une classe pour masquer les sous-sections */
+.hidden {
+    display: none;
+}
