@@ -63,6 +63,21 @@ class DataVisualizer:
         plt.savefig(self.img_folder + 'solution_sector_hist.png')
         plt.show()
 
+        # Get the root sector (first row = index 1)
+        root_sector = df['sous_secteurs'][1]
+
+        # For each root sector, recursively get the number of solutions by adding the number of solutions of its children
+        def get_solution_count(sector):
+            if sector in df['sous_secteurs']:
+                return sum([get_solution_count(i) for i in df[df['sous_secteurs'] == sector]['solutions'].values[0]])
+            else:
+                return len(df[df['sous_secteurs'] == sector]['solutions'].values[0])
+        
+        for i in root_sector:
+            print(i, get_solution_count(i))
+
+        print('Root sector:', root_sector)
+
 
 # Usage
 if __name__ == "__main__":
