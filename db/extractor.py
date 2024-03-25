@@ -287,7 +287,7 @@ class Extractor:
         df_cout.drop(index=0, inplace=True) ; df_cout.drop(columns="license", inplace=True)
         # Set the index to "numsolution" and "numrex"
         df_cout.set_index(["numsolution", "numrex"], inplace=True)
-        
+
         # Remove the lines where "minicout", "maxicout", "reelcout" are NaN in the 3 columns
         df_cout = df_cout.dropna(subset=["mini_cout", "maxi_cout", "reel_cout"], how="all")
         # Merge the duplicated indeces into one row by summing the values of the columns if "codemonnaiecout" and "codeunitecout" are the same
@@ -302,18 +302,17 @@ class Extractor:
                                               "code_unite_energie", "code_periode_energie", "ges_gain", 
                                               "mini_gain", "maxi_gain", "moyen_gain", "reel_gain", "tri_reel", 
                                               "tri_min", "tri_max", "license"])
+
         # Remove the first row, and the last column
         df_gain.drop(index=0, inplace=True) ; df_gain.drop(columns="license", inplace=True)
         # Set the index to "numsolution" and "numrex"
         df_gain.set_index(["numsolution", "numrex"], inplace=True)
         # Drop the column "numgain"
         df_gain.drop(columns="numgain", inplace=True)
-
-        # Remove the lines where "gain", "energiegain", "gesgain", "minigain", "maxigain", "moyengain", "reelgain", "trireel", "trimin", "trimax" are NaN in the 10 columns
-        df_gain = df_gain.dropna(subset=["gain", "energie_gain", "ges_gain", "mini_gain", "maxi_gain", "moyen_gain", "reel_gain", "tri_reel", "tri_min", "tri_max"], how="all")
         
         # Merge df_cout and df_gain on the index
         df = pd.merge(df_cout, df_gain, on=["numsolution", "numrex"], how="outer")
+
 
         # Transform the columns that start with "code" to int (if they are not NaN)
         columns = [col for col in df.columns if col.startswith("code")]
@@ -353,11 +352,14 @@ class Extractor:
         df_sol_rex = df_sol_rex.reset_index()
         df_sol_rex = df_sol_rex.groupby("numrex")["numsolution"].apply(list).reset_index()
         df_sol_rex.set_index("numrex", inplace=True)
+
+        
         # Remove all other columns than "numsolution"
         df_sol_rex = df_sol_rex[["numsolution"]]
         
         # Merge the two dataframes (inner because there are rex without solutions and vice versa)
         df_sec_sol = pd.merge(df_rex_sec, df_sol_rex, on="numrex", how="inner")
+
         # Reset the index and remove "numrex" and rename the column "codesecteur" into "numsecteur" and "solutions" into "solutions"
         df_sec_sol.reset_index(inplace=True) ; df_sec_sol.drop(columns="numrex", inplace=True)
         df_sec_sol.rename(columns={"codesecteur": "numsecteur", "numsolution": "solutions"}, inplace=True)
