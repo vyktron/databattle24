@@ -131,7 +131,7 @@ print("accuracy = ", acc)
 
 def plot_data_by_principal_components(list_emb):
     # Perform PCA
-    pca = PCA(n_components=2)
+    pca = PCA(n_components=)
     data_pca = pca.fit_transform(list_emb)
 
     print(pca.explained_variance_ratio_)
