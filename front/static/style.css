@@ -120,3 +120,67 @@ button:hover {
 .toggle-button:hover {
     background-color: lightgrey;
 }
+/* Lorsque survolé */
+.options:hover,
+.toggle-button:hover {
+    background-color: #e5ffe5; /* Changement de couleur de fond */
+    border-radius: 10px; /* Rend les bords arrondis */
+    cursor: pointer;
+}
+
+.options:hover {
+    padding: 5px 10px; /* Ajoute un peu d'espace entre le texte et les bords */
+}
+
+/* Lorsque cliqué */
+.options:active,
+.toggle-button:active {
+    cursor: pointer; 
+}
+
+/* 
+.options:hover,
+.sub-option:hover {
+    background-color: #e5ffe5;
+    border-radius: 10px;
+    cursor: pointer; 
+} */
+
+td#td2:hover {
+    background-color: #e5ffe5; /* Vert pastel très très clair */
+    border-radius: 10px; /* Rend les bords arrondis */
+    padding: 5px 10px; /* Ajoute un peu d'espace entre le texte et les bords */
+    cursor: pointer; 
+}
+
+/* Lorsque cliqué */
+.options:active,
+.toggle-button:active,
+.sub-option:active {
+    cursor: pointer; 
+}
+
+.clear-option {
+    cursor: pointer;
+    color: red;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.clear-option:hover {
+    color: darkred;
+}
+
+/* Par défaut, l'image verte est invisible */
+.plus-icon-green {
+    display: none;
+}
+
+/* Lorsque la souris survole le bouton, l'image verte devient visible */
+.toggle-button:hover .plus-icon {
+    display: none;
+}
+
+.toggle-button:hover .plus-icon-green {
+    display: inline-block;
+}
