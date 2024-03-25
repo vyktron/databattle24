@@ -66,20 +66,86 @@ class DataVisualizer:
         # Get the root sector (first row = index 1)
         root_sector = df['sous_secteurs'][1]
 
-        # For each root sector, recursively get the number of solutions by adding the number of solutions of its children
-        def get_solution_count(sector):
-            if sector in df['sous_secteurs']:
-                return sum([get_solution_count(i) for i in df[df['sous_secteurs'] == sector]['solutions'].values[0]])
-            else:
-                return len(df[df['sous_secteurs'] == sector]['solutions'].values[0])
+        # Delete the first element of the list (it is the root sector)
+        root_sector = root_sector[1:]
+
+        # For each roots sector, recursively count the number of solutions by adding the number of solutions of its children
+        def count_solutions(sector):
+            # take care of non existing values
+            if sector not in df.index:
+                return []
+            # Get the solutions of the sector
+            solutions = df['solutions'][sector]
+            solutions = solutions if not isinstance(solutions, float) else []
+            # Get the children of the sector
+            children = df['sous_secteurs'][sector]
+            # If children is NaN, return number of solutions of the sector
+            if isinstance(children, float):
+                children = None
+            if children is not None:
+                for i in children:
+                    solutions += count_solutions(i)
+            
+            return list(set(solutions))
         
-        for i in root_sector:
-            print(i, get_solution_count(i))
+        # Get the solutions of the root sector
+        root_solutions = [count_solutions(i) for i in root_sector]
 
-        print('Root sector:', root_sector)
+        # Create a dictionary to count the number of appearances of each solution
+        solution_count = {}
+        for l in root_solutions:
+            if isinstance(l, float):
+                continue
+            else:
+                for i in l:
+                    if i in solution_count:
+                        solution_count[i] += 1
+                    else:
+                        solution_count[i] = 1
 
+        # Create an histogram to show the number of sectors that have a certain number of appearances
+        histogram = [0 for i in range(max(solution_count.values())+1)]
+        for i in solution_count.values():
+            histogram[i] += 1
+
+        plt.bar(range(1, len(histogram)), histogram[1:])
+        plt.xlabel('Number of appearances')
+        plt.ylabel('Number of solutions')
+        plt.title('Histogram of number of sectors per solution')
+        plt.savefig(self.img_folder + 'root_solution_sector_hist.png')
+        plt.show()
+
+    def solution_rex(self):
+
+        df2 = self.extractor.extract_solution_rex(False)
+
+        # Get the indeces where first index is the solution and the second is the numrex
+        solution_rex = df2.index
+
+        # Delete rows when solution is equal to 1
+        solution_rex = solution_rex[solution_rex.get_level_values(0) != 1]
+
+        # Count the number of numrex for each solution and store it in a dictionary
+        solution_count = {}
+        for i in solution_rex:
+            if i[0] in solution_count:
+                solution_count[i[0]] += 1
+            else:
+                solution_count[i[0]] = 1
+
+        solutions = list(solution_count.keys())
+        counts = list(solution_count.values())
+
+        # Create a histogram to show the number of numrex for each solution
+        plt.bar(solutions, counts)
+        plt.xlabel('Solution')
+        plt.ylabel('Number of numrex')
+        plt.title('Histogram of number of numrex per solution')
+        plt.savefig(self.img_folder + 'solution_numrex_hist.png')
+        plt.show()
 
 # Usage
 if __name__ == "__main__":
     data_viz = DataVisualizer('viz/img/')
     data_viz.sector_solution_viz()
+    data_viz.solution_rex()
