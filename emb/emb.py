@@ -2,20 +2,23 @@ import torch
 import torch.nn.functional as F
 from transformers import AutoTokenizer, AutoModel
 from nltk.corpus import stopwords
+import pandas as pd
+import numpy as np
 
 #import nltk
 #nltk.download('stopwords')
 
+TOKENIZERS_PARALLELISM = True
 
 #embeddings
-def embeddings(sentence, max_length, model_name, lang):
+def embeddings(sentence, model_name, lang):
 
     stopword = set(stopwords.words(lang))
 
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = AutoModel.from_pretrained(model_name, output_attentions=True)
 
-    tokens = tokenizer.tokenize(sentence, max_length=max_length, truncation=True)
+    tokens = tokenizer.tokenize(sentence, max_length=None, truncation=True)
     filtered_tokens = [x for x in tokens if x not in stopword]
 
     input_ids = tokenizer.convert_tokens_to_ids(filtered_tokens)
@@ -44,7 +47,7 @@ def cosine_similarity(emb1, emb2):
 #return id row of dataframe, the most closest answer
 def find_answer_to_query(query, list_emb, nb_ans, model_name, lang):
 
-    query_emb = embeddings(query, 512, model_name, lang)
+    query_emb = embeddings(query, model_name, lang)
 
     cos_sim = []
     for emb in list_emb:
@@ -54,7 +57,7 @@ def find_answer_to_query(query, list_emb, nb_ans, model_name, lang):
     for i in range(nb_ans):
         id_max = cos_sim.index(max(cos_sim))
         id_max_list.append(id_max)
-        cos_sim.pop(id_max)
+        cos_sim[id_max] = 0
     
     return id_max_list
 
@@ -85,3 +88,23 @@ def important_words(sentence, model_name, lang):
     important_words = [tokens[i] for i in top_indices]
 
     return important_words
+
+
+
+def stock_embeddings(list_emb):
+
+    list_emb = np.concatenate([emb.numpy().reshape(1, -1) for emb in list_emb])
+
+    df = pd.DataFrame(list_emb)
+    csv_file_path = "embeddings.csv"
+    df.to_csv(csv_file_path, index=False)
+
+    print("embeddings stock in embeddings.csv")
+
+
+def load_embeddings(csv_path):
+
+    df = pd.read_csv(csv_path)
+    list_emb = df.values.tolist()
+
+    return list_emb
