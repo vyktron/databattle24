@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FastAPI Eco</title>
     <link rel="stylesheet" href="{{ url_for('static', path='/style.css') }}">
+    <style>
+        .sub-options {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -18,7 +23,7 @@
                             <option value="{{ option.name }}">{{ option.name }}</option>
                             {% if option.get('sub_options') %}
                                 {% for sub_option in option.sub_options %}
-                                    <option value="{{ sub_option.value }}">{{ sub_option.name }}</option>
+                                    <option class="sub-options" data-parent="{{ option.name }}" value="{{ sub_option.value }}">{{ sub_option.name }}</option>
                                 {% endfor %}
                             {% endif %}
                         {% endfor %}
@@ -40,5 +45,29 @@
         <label for="budget">Budget:</label>
         <input type="text" id="budget" name="budget">
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var dropdown = document.getElementById('dropdown');
+            var subOptions = document.querySelectorAll('.sub-options');
+
+            dropdown.addEventListener('change', function() {
+                var selectedOption = this.value;
+
+                // Cacher toutes les sous-options
+                subOptions.forEach(function(subOption) {
+                    subOption.style.display = 'none';
+                    subOption.classList.add('hidden');
+                });
+
+                // Afficher les sous-options correspondant à l'option sélectionnée
+                var selectedSubOptions = document.querySelectorAll('.sub-options[data-parent="' + selectedOption + '"]');
+                selectedSubOptions.forEach(function(subOption) {
+                    subOption.style.display = 'block';
+                    subOption.classList.remove('hidden');
+                });
+            });
+        });
+    </script>
 </body>
 </html>
