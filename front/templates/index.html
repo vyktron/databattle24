@@ -60,58 +60,86 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            var dropdownOptions = document.querySelectorAll('.options');
-            var selectedValue = document.getElementById('selected_value');
-            var nestedTable = document.getElementById('nested_table');
-            var toggleButtons = document.querySelectorAll('.toggle-button');
-            var subOptions = document.querySelectorAll('.sub-option');
-            var clearOption = document.getElementById('clear_option');
-            var input = document.getElementById('selected_value');
-            
-            nestedTable.style.display = 'none';
+        var dropdownOptions = document.querySelectorAll('.options');
+        var selectedValue = document.getElementById('selected_value');
+        var nestedTable = document.getElementById('nested_table');
+        var toggleButtons = document.querySelectorAll('.toggle-button');
+        var subOptions = document.querySelectorAll('.sub-option');
+        var clearOption = document.getElementById('clear_option');
+        var input = document.getElementById('selected_value');
+        
+        nestedTable.style.display = 'none';
 
-            toggleButtons.forEach(function(button) {
-                button.addEventListener('click', function() {
-                    var parentOption = this.parentElement.nextElementSibling.textContent;
-                    var subOptions = document.querySelectorAll('.sub-option[data-parent="' + parentOption + '"]');
-                    subOptions.forEach(function(subOption) {
-                        subOption.classList.toggle('hidden');
-                    });
-                    /* Change l'icône du bouton pour qu'il change avec static/minus.png */
-                    this.innerHTML = this.innerHTML === '<img src="static/plus_green.png" width="20" height="20">' ? '<img src="static/minus.png" width="20" height="20">' : '<img src="static/plus.png" width="20" height="20">';
-                });      
-            });
-            
-
-            subOptions.forEach(function(subOption) {
-                subOption.addEventListener('click', function() {
-                    var text = this.textContent.replace(/\s/g, '');
-                    selectedValue.value = text;
-                    nestedTable.style.display = 'none';
-                });
-            });
-            
-            dropdownOptions.forEach(function(option) {
-                option.addEventListener('click', function() {
-                    var text = this.textContent.replace(/\s/g, '');
-                    selectedValue.value = text;
-                    nestedTable.style.display = 'none';
-                });
-            });
-
-            clearOption.addEventListener('click', function() {
-                selectedValue.value = ""; // Efface la valeur
-                selectedValue.placeholder = "Choisissez votre secteur"; // Rétablit le placeholder
-            });
-
-            input.addEventListener('click', function() {
-                if (nestedTable.style.display === 'none') {
-                    nestedTable.style.display = 'block';
-                } else {
-                    nestedTable.style.display = 'none';
+        toggleButtons.forEach(function(button) {
+            button.addEventListener('mouseenter', function() {
+                // Changer l'image au survol
+                var icon = this.querySelector('.plus-icon');
+                var iconGreen = this.querySelector('.plus-icon-green');
+                if (icon.style.display !== 'none') {
+                    icon.style.display = 'none';
+                    iconGreen.style.display = 'inline-block';
                 }
             });
+
+            button.addEventListener('mouseleave', function() {
+                // Rétablir l'image par défaut après le survol
+                var icon = this.querySelector('.plus-icon');
+                var iconGreen = this.querySelector('.plus-icon-green');
+                if (iconGreen.style.display !== 'none') {
+                    icon.style.display = 'inline-block';
+                    iconGreen.style.display = 'none';
+                }
+            });
+
+            button.addEventListener('click', function() {
+                var parentOption = this.parentElement.nextElementSibling.textContent;
+                var subOptions = document.querySelectorAll('.sub-option[data-parent="' + parentOption + '"]');
+                subOptions.forEach(function(subOption) {
+                    subOption.classList.toggle('hidden');
+                });
+
+                // Changer l'icône lors du clic
+                var icon = this.querySelector('.plus-icon');
+                var iconGreen = this.querySelector('.plus-icon-green');
+                if (icon.style.display !== 'none') {
+                    icon.style.display = 'none';
+                    iconGreen.style.display = 'inline-block';
+                } else {
+                    icon.style.display = 'inline-block';
+                    iconGreen.style.display = 'none';
+                }
+            });      
         });
+
+        subOptions.forEach(function(subOption) {
+            subOption.addEventListener('click', function() {
+                var text = this.textContent.replace(/\s/g, '');
+                selectedValue.value = text;
+                nestedTable.style.display = 'none';
+            });
+        });
+        
+        dropdownOptions.forEach(function(option) {
+            option.addEventListener('click', function() {
+                var text = this.textContent.replace(/\s/g, '');
+                selectedValue.value = text;
+                nestedTable.style.display = 'none';
+            });
+        });
+
+        clearOption.addEventListener('click', function() {
+            selectedValue.value = ""; // Efface la valeur
+            selectedValue.placeholder = "Choisissez votre secteur"; // Rétablit le placeholder
+        });
+
+        input.addEventListener('click', function() {
+            if (nestedTable.style.display === 'none') {
+                nestedTable.style.display = 'block';
+            } else {
+                nestedTable.style.display = 'none';
+            }
+        });
+    });
     </script>
 </body>
 </html>
