@@ -21,10 +21,7 @@
                         <tr>
                             <td>
                                 {% if option.get('sub_options') %}
-                                <button class="toggle-button">
-                                    <img src='static/plus.png' class="plus-icon" width="20" height="20">
-                                    <img src='static/plus_green.png' class="plus-icon-green" width="20" height="20">
-                                </button>
+                                <img src='static/plus.png' class="button-icon" width="20" height="20">
                                 {% endif %}
                             </td>
                             <td class="options">{{ option.name }}</td>
@@ -63,7 +60,7 @@
         var dropdownOptions = document.querySelectorAll('.options');
         var selectedValue = document.getElementById('selected_value');
         var nestedTable = document.getElementById('nested_table');
-        var toggleButtons = document.querySelectorAll('.toggle-button');
+        var toggleButtons = document.querySelectorAll('.button-icon');
         var subOptions = document.querySelectorAll('.sub-option');
         var clearOption = document.getElementById('clear_option');
         var input = document.getElementById('selected_value');
@@ -71,25 +68,6 @@
         nestedTable.style.display = 'none';
 
         toggleButtons.forEach(function(button) {
-            button.addEventListener('mouseenter', function() {
-                // Changer l'image au survol
-                var icon = this.querySelector('.plus-icon');
-                var iconGreen = this.querySelector('.plus-icon-green');
-                if (icon.style.display !== 'none') {
-                    icon.style.display = 'none';
-                    iconGreen.style.display = 'inline-block';
-                }
-            });
-
-            button.addEventListener('mouseleave', function() {
-                // Rétablir l'image par défaut après le survol
-                var icon = this.querySelector('.plus-icon');
-                var iconGreen = this.querySelector('.plus-icon-green');
-                if (iconGreen.style.display !== 'none') {
-                    icon.style.display = 'inline-block';
-                    iconGreen.style.display = 'none';
-                }
-            });
 
             button.addEventListener('click', function() {
                 var parentOption = this.parentElement.nextElementSibling.textContent;
@@ -98,15 +76,11 @@
                     subOption.classList.toggle('hidden');
                 });
 
-                // Changer l'icône lors du clic
-                var icon = this.querySelector('.plus-icon');
-                var iconGreen = this.querySelector('.plus-icon-green');
-                if (icon.style.display !== 'none') {
-                    icon.style.display = 'none';
-                    iconGreen.style.display = 'inline-block';
+                // Toggle icon to plus from minus and vice versa
+                if (this.src.includes('plus')) {
+                    this.src = 'static/minus.png';
                 } else {
-                    icon.style.display = 'inline-block';
-                    iconGreen.style.display = 'none';
+                    this.src = 'static/plus.png';
                 }
             });      
         });

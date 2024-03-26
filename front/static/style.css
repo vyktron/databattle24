@@ -149,8 +149,16 @@ button:hover {
 td#td2:hover {
     background-color: #e5ffe5; /* Vert pastel très très clair */
     border-radius: 10px; /* Rend les bords arrondis */
-    padding: 5px 10px; /* Ajoute un peu d'espace entre le texte et les bords */
+    padding-left: 10px; /* Ajoute un peu d'espace entre le texte et les bords */
     cursor: pointer; 
+}
+
+td#td2 {
+    font-family: 'Courier New', Courier, monospace;
+    padding-left: 8px;
+    padding-block: 3px;
+    font-size: 14px;
+    font-style: italic;
 }
 
 /* Lorsque cliqué */
@@ -172,15 +180,7 @@ td#td2:hover {
 }
 
 /* Par défaut, l'image verte est invisible */
-.plus-icon-green {
-    display: none;
-}
-
-/* Lorsque la souris survole le bouton, l'image verte devient visible */
-.toggle-button:hover .plus-icon {
-    display: none;
-}
-
-.toggle-button:hover .plus-icon-green {
-    display: inline-block;
+.button-icon:hover {
+    filter: brightness(0) saturate(100%) invert(66%) sepia(50%) saturate(605%) hue-rotate(59deg) brightness(99%) contrast(91%);
+    cursor: pointer;
 }

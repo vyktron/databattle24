@@ -42,8 +42,6 @@ async def read_item(request: Request):
 @app.post("/submit/")
 async def submit_data(request: Request, selected_option: str, user_input: str):
     # Utilisez ici les données pour effectuer le traitement nécessaire
-    print("Option sélectionnée:", selected_option)
-    print("Texte de l'utilisateur:", user_input)
     return {"message": "Données reçues avec succès"}
 
 if __name__ == "__main__":

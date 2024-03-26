@@ -36,5 +36,5 @@ def get_name():
 
     return list_name
 
-x=get_name()
-print(x)
+# x=get_name()
+# print(x)
