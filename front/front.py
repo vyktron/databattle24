@@ -2,12 +2,12 @@ import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-from utils import get_name
+from utils import get_name, test
 
 import uvicorn
 
@@ -40,9 +40,11 @@ async def read_item(request: Request):
 
 # Fonction pour traiter les données envoyées par le formulaire
 @app.post("/submit/")
-async def submit_data(request: Request, selected_option: str, user_input: str):
-    # Utilisez ici les données pour effectuer le traitement nécessaire
-    return {"message": "Données reçues avec succès"}
+async def submit_form(user_input: str, selected_option: str):
+    # Traitez les données reçues
+    message = f"Données reçues avec succès: {user_input} / {selected_option}"
+    # Renvoyez une réponse avec un message approprié
+    return {"message": message}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)

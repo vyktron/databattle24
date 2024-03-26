@@ -36,5 +36,8 @@ def get_name():
 
     return list_name
 
+def test(text, selected_option):
+    return {"message": "Données reçues avec succès" + text +" /" + selected_option}
+
 # x=get_name()
 # print(x)

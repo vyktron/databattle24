@@ -37,17 +37,15 @@
                     {% endfor %}
                 </tbody>
             </table>
-            <form action="/submit/" method="post">
-                <div>
-                    <label for="user_input">Entrez votre texte:</label>
-                    <textarea id="user_input" name="user_input" rows="4" cols="50"></textarea>
-                </div>
-                <button type="submit">Soumettre</button>
-            </form>
+            <div>
+                <label for="user_input">Entrez votre texte:</label>
+                <textarea id="user_input" name="user_input" rows="4" cols="50"></textarea>
+            </div>
+            <button type="button" onclick="submitForm()">Soumettre</button>
         </div>
         <div class="sidebar">
             <h2>Solution</h2>
-            <!-- Contenu de la barre latérale à remplir plus tard -->
+            <div id="result"></div>
         </div>
     </div>
     <div class="centered">
@@ -114,6 +112,23 @@
             }
         });
     });
+    function submitForm() {
+            var user_input = document.getElementById("user_input").value;
+            var selected_option = document.getElementById("selected_value").value;
+
+            fetch('/submit/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ user_input: user_input, selected_option: selected_option })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("result").innerHTML = data.message;
+            })
+            .catch(error => console.error('Erreur :', error));
+        }
     </script>
 </body>
 </html>
