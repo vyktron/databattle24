@@ -1,0 +1,211 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8f7;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    width: 80%;
+    margin: 50px auto;
+}
+
+.content {
+    flex: 1;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar {
+    flex: 1;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-left: 20px;
+}
+
+.title {
+    font-family: "Cookie", cursive;
+    letter-spacing: 2px;
+    font-size: 65px;
+    font-weight: 200;
+    text-align: center;
+    margin-top: 50px;
+}
+.title-ia {
+    font-family: "Rowdies", sans-serif;
+    font-weight: bold;
+    font-size: 50px;
+    color: #4caf99;
+}
+
+h1 {
+    color: #4caf50;
+}
+
+h2 {
+    color: #4caf50; /* Couleur du titre "Solution" */
+}
+
+form {
+    margin-top: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #4caf50;
+}
+
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="text"] {
+    width: 80px; /* Taille légèrement plus grande */
+    padding: 8px; /* Ajustement du padding */
+    text-align: center; /* Centrage du texte */
+    border-radius: 10px; /* Bords arrondis */
+    border: 1px solid #ccc; /* Bordure */
+    outline: none; /* Suppression de la bordure */
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.centered {
+    text-align: center;
+}
+
+/* Ajouter une classe pour masquer les sous-sections */
+.hidden {
+    display: none;
+}
+
+
+/* Styles for the nested table */
+.nested-table {
+    display: none;
+    margin-left: 20px;
+}
+
+/* Styles for the input field */
+#selected_value {
+    width: 30%;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: rgb(243, 243, 243);
+    border: 2px solid rgb(211, 211, 211);
+    text-align: left;
+}
+
+/* Styles for the toggle button */
+.toggle-button {
+    background-color: white;
+    color: grey;
+    border:rgb(255, 255, 255);
+    padding: 3px 8px; /* Adjust the padding to make the button smaller */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 50%; /* Add border-radius to make the button round */
+}
+.toggle-button:hover {
+    background-color: lightgrey;
+}
+/* Lorsque survolé */
+.options:hover,
+.toggle-button:hover {
+    background-color: #e5ffe5; /* Changement de couleur de fond */
+    border-radius: 10px; /* Rend les bords arrondis */
+    cursor: pointer;
+}
+
+.options:hover {
+    padding: 5px 10px; /* Ajoute un peu d'espace entre le texte et les bords */
+}
+
+/* Lorsque cliqué */
+.options:active,
+.toggle-button:active {
+    cursor: pointer; 
+}
+
+/* 
+.options:hover,
+.sub-option:hover {
+    background-color: #e5ffe5;
+    border-radius: 10px;
+    cursor: pointer; 
+} */
+
+td#td2:hover {
+    background-color: #e5ffe5; /* Vert pastel très très clair */
+    border-radius: 10px; /* Rend les bords arrondis */
+    padding-left: 10px; /* Ajoute un peu d'espace entre le texte et les bords */
+    cursor: pointer; 
+}
+
+td#td2 {
+    font-family: 'Courier New', Courier, monospace;
+    padding-left: 8px;
+    padding-block: 3px;
+    font-size: 14px;
+    font-style: italic;
+}
+
+/* Lorsque cliqué */
+.options:active,
+.toggle-button:active,
+.sub-option:active {
+    cursor: pointer; 
+}
+
+.clear-option {
+    cursor: pointer;
+    color: rgb(201, 91, 91);
+    font-weight: bold;
+    margin-left: 5px;
+    position: relative; /* Add position property */
+}
+
+.clear-option::before {
+    content: "✖"; /* Add cross symbol */
+    position: absolute; /* Position the cross */
+    top: 50%; /* Align vertically */
+    left: -30px; /* Position to the left of the element */
+    top: 10px; /* Align vertically */
+    transform: translateY(-50%); /* Center vertically */
+}
+
+.clear-option:hover {
+    color: rgb(128, 47, 47);
+}
+
+/* Par défaut, l'image verte est invisible */
+.button-icon:hover {
+    filter: brightness(0) saturate(100%) invert(66%) sepia(50%) saturate(605%) hue-rotate(59deg) brightness(99%) contrast(91%);
+    cursor: pointer;
+}

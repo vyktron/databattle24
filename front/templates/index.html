@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ophelia</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&family=Galada&family=Honk&family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <h1 class="title">Ophel.<span class="title-ia">IA</span></h1>
+    <div class="container">
+        <div class="content">
+            <h2>Requête</h2>
+            <div class="selected-option">
+                <input type="text" id="selected_value" placeholder="Choisissez votre secteur" readonly>
+                <span id="clear_option" class="clear-option"></span>
+            </div>
+
+            <table id="nested_table" class="nested-table">
+                <tbody>
+                    {% for option in dropdown_options %}
+                        <tr>
+                            <td>
+                                {% if option.get('sub_secteurs') %}
+                                <img src='static/plus.png' class="button-icon" width="20" height="20">
+                                {% endif %}
+                            </td>
+                            <td class="options">{{ option.name }}</td>
+                        </tr>
+                        {% if option.get('sub_secteurs') %}
+                            {% for sub_secteur in option.sub_secteurs %}
+                                <tr class="sub-option hidden" data-parent="{{ option.name }}">
+                                    <td></td>
+                                    <td id = 'td2'>{{ sub_secteur.name }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+            <br>
+            <div>
+                <label for="user_input">Entrez votre texte:</label>
+                <textarea id="user_input" name="user_input" rows="4" cols="50"></textarea>
+            </div>
+            <button type="button" onclick="submitForm()">Soumettre</button>
+        </div>
+        <div class="sidebar">
+            <h2>Solution</h2>
+            <div id="result"></div>
+        </div>
+    </div>
+    <div class="centered">
+        <label for="budget">Budget:</label>
+        <input type="text" id="budget" name="budget">
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+        var dropdownOptions = document.querySelectorAll('.options');
+        var selectedValue = document.getElementById('selected_value');
+        var nestedTable = document.getElementById('nested_table');
+        var toggleButtons = document.querySelectorAll('.button-icon');
+        var subOptions = document.querySelectorAll('.sub-option');
+        var clearOption = document.getElementById('clear_option');
+        var input = document.getElementById('selected_value');
+        
+        nestedTable.style.display = 'none';
+
+        toggleButtons.forEach(function(button) {
+
+            button.addEventListener('click', function() {
+                var parentOption = this.parentElement.nextElementSibling.textContent;
+                var subOptions = document.querySelectorAll('.sub-option[data-parent="' + parentOption + '"]');
+                subOptions.forEach(function(subOption) {
+                    subOption.classList.toggle('hidden');
+                });
+
+                // Toggle icon to plus from minus and vice versa
+                if (this.src.includes('plus')) {
+                    this.src = 'static/minus.png';
+                } else {
+                    this.src = 'static/plus.png';
+                }
+            });      
+        });
+
+        subOptions.forEach(function(subOption) {
+            subOption.addEventListener('click', function() {
+                var text = this.textContent.trim();
+                selectedValue.value = text;
+                nestedTable.style.display = 'none';
+            });
+        });
+        
+        dropdownOptions.forEach(function(option) {
+            option.addEventListener('click', function() {
+                var text = this.textContent.trim();
+                selectedValue.value = text;
+                nestedTable.style.display = 'none';
+            });
+        });
+
+        clearOption.addEventListener('click', function() {
+            selectedValue.value = ""; // Efface la valeur
+            selectedValue.placeholder = "Choisissez votre secteur"; // Rétablit le placeholder
+        });
+
+        input.addEventListener('click', function() {
+            if (nestedTable.style.display === 'none') {
+                nestedTable.style.display = 'block';
+            } else {
+                nestedTable.style.display = 'none';
+            }
+        });
+    });
+    function submitForm() {
+            var user_input = document.getElementById("user_input").value;
+            var selected_option = document.getElementById("selected_value").value;
+
+            fetch('/submit/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ "user_input": user_input, "selected_option": selected_option })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("result").innerHTML = data.message;
+            })
+            .catch(error => console.error('Erreur :', error));
+        }
+    </script>
+</body>
+</html>
