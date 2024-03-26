@@ -28,6 +28,21 @@ body {
     margin-left: 20px;
 }
 
+.title {
+    font-family: "Cookie", cursive;
+    letter-spacing: 2px;
+    font-size: 65px;
+    font-weight: 200;
+    text-align: center;
+    margin-top: 50px;
+}
+.title-ia {
+    font-family: "Rowdies", sans-serif;
+    font-weight: bold;
+    font-size: 50px;
+    color: #4caf99;
+}
+
 h1 {
     color: #4caf50;
 }
@@ -170,13 +185,23 @@ td#td2 {
 
 .clear-option {
     cursor: pointer;
-    color: red;
+    color: rgb(201, 91, 91);
     font-weight: bold;
     margin-left: 5px;
+    position: relative; /* Add position property */
+}
+
+.clear-option::before {
+    content: "✖"; /* Add cross symbol */
+    position: absolute; /* Position the cross */
+    top: 50%; /* Align vertically */
+    left: -30px; /* Position to the left of the element */
+    top: 10px; /* Align vertically */
+    transform: translateY(-50%); /* Center vertically */
 }
 
 .clear-option:hover {
-    color: darkred;
+    color: rgb(128, 47, 47);
 }
 
 /* Par défaut, l'image verte est invisible */

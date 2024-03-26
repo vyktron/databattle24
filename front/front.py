@@ -20,29 +20,37 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
 # Obtenir les noms à partir de get_name
-names_data = get_name()
-
-# Création d'une liste pour stocker les options
-dropdown_options = []
-
+dropdown_options = get_name()
 # Boucle sur les données pour obtenir les noms principaux et leurs sous-options
-for data in names_data:
-    option = {'name': data['name']}  # Ajout du nom principal
-    if data.get('sub_secteurs'):  # Vérification s'il y a des sous-options
-        sub_options = [{'name': f"{sub_data['name']}", 'value': sub_data['name']} for sub_data in data['sub_secteurs']]
-        option['sub_options'] = sub_options
-    dropdown_options.append(option)
 
 # Page d'accueil
 @app.get("/", response_class=HTMLResponse)
 async def read_item(request: Request):
     return templates.TemplateResponse("index.html", {"request": request, "dropdown_options": dropdown_options})
 
-# Fonction pour traiter les données envoyées par le formulaire
+# Deal with user input (sector, sub_sector and query)
 @app.post("/submit/")
-async def submit_form(user_input: str, selected_option: str):
-    # Traitez les données reçues
-    message = f"Données reçues avec succès: {user_input} / {selected_option}"
+async def submit_form(dict_data: dict):
+
+    user_input = dict_data.get('user_input')
+    selected_option = dict_data.get('selected_option')
+
+    sector_number = None
+    sub_sector_number = None
+    # Find the number of the sector assiocated with the selected_option
+    for _, option in enumerate(dropdown_options):
+        print(option, selected_option)
+        if option['name'] == selected_option:
+            sector_number = option["code"]
+            break
+        for _, sub_option in enumerate(option.get('sub_secteurs', [])):
+            print(sub_option, selected_option)
+            if sub_option['name'] == selected_option:
+                sector_number = option["code"]
+                sub_sector_number = sub_option["code"]
+                break
+
+    message = f"Données reçues avec succès: {user_input} / {selected_option} / {sector_number} / {sub_sector_number}"
     # Renvoyez une réponse avec un message approprié
     return {"message": message}
 
