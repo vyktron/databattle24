@@ -236,4 +236,4 @@ def writing_csv():
     df_donnees = pd.DataFrame(donnees)
     df_donnees.to_csv("../data/donnees_solution.csv", index=False)
 
-writing_csv()
+# writing_csv() pour creer le csv
