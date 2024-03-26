@@ -59,7 +59,7 @@ query_emb = embeddings(QUERY[4], MODEL_NAME, LANG)
 chclient = ChromaClient()
 
 #get ids of sol
-ids_filterd, ids = chclient.query_to_sol(query_emb, 9, 12, 20)
+ids_filterd, ids = chclient.query_to_sol(query_emb, 50, 56, 20)
 
 print(ids_filterd, ids)
 
@@ -75,3 +75,6 @@ for i in ids_filterd:
     i = int(i)
     print("answer filtered ", j, " : sol n" + str(i) + " ", df_sol.loc[df_sol['numsolution'] == i, 'titre'].values[0])
     j += 1
+
+
+print(chclient.collection.get("719"))

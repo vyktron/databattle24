@@ -434,15 +434,40 @@ class Extractor:
 
         return df
 
+    def connections_per_day(self) -> float:
+        """ Get the average number of connections per day using the tblconnexion table 
+        
+        Returns:
+        -------
+            float: The average number of connections per day
+        """
+
+        # Select all rows from tblconnexion
+        self.cursor.execute("SELECT numconnexion, login, dateconnexion FROM tblconnexion")
+        data = self.cursor.fetchall()
+        df = pd.DataFrame(data, columns=["numconnexion", "login", "dateconnexion"])
+
+        # Keep only "Visiteur" logins
+        df = df[df["login"] == "Visiteur"]
+        # Get the number of connections per day
+        df["dateconnexion"] = pd.to_datetime(df["dateconnexion"])
+        df["dateconnexion"] = df["dateconnexion"].dt.date
+
+        df = df.groupby("dateconnexion")["numconnexion"].count().reset_index()
+
+        return df["numconnexion"].mean()    
+
 if __name__ == "__main__":
     extractor = Extractor()
-    extractor.extract_solution()
-    extractor.extract_dictionnaire("tec", "technologie") # Technologies
-    extractor.extract_techno_solution()
-    extractor.extract_sectors()
-    df_sol_rex = extractor.extract_solution_rex()
-    extractor.extract_sector_solution(df_sol_rex)
-    df_unit = extractor.extract_dictionnaire_categories("uni", "unite") # Units
-    extractor.extract_dictionnaire_categories("per", "periode") # Periods
-    extractor.extract_monnaie() # Currencies
+    # extractor.extract_solution()
+    # extractor.extract_dictionnaire("tec", "technologie") # Technologies
+    # extractor.extract_techno_solution()
+    # extractor.extract_sectors()
+    # df_sol_rex = extractor.extract_solution_rex()
+    # extractor.extract_sector_solution(df_sol_rex)
+    # df_unit = extractor.extract_dictionnaire_categories("uni", "unite") # Units
+    # extractor.extract_dictionnaire_categories("per", "periode") # Periods
+    # extractor.extract_monnaie() # Currencies
+
+    print(extractor.connections_per_day())
 
