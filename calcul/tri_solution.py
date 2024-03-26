@@ -3,7 +3,7 @@ import math
 
 def calcul_rentabilite(liste_solutions):
     valeur = []
-    df = pd.read_csv('donnees_solution.csv')
+    df = pd.read_csv('../data/donnees_solution.csv')
     for x in liste_solutions:
         try:
             valeur.append(list(df[(df['num_solution'] == int(x))].iloc[0]))
