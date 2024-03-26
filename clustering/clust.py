@@ -10,7 +10,7 @@ from collections import Counter
 
 import sys
 sys.path.append('../')
-from emb.emb import load_embeddings
+from emb.embed import load_embeddings
 
 DATA_PATH_DICO = "../data/dictionary.csv"
 DATA_PATH_TECH = "../data/techno_solution.csv"
@@ -124,9 +124,6 @@ print("accuracy = ", acc)
 #     return components
 
 # print(compute_PCA(list_emb, cluster_labels))
-
-
-
 
 
 def plot_data_by_principal_components(list_emb):

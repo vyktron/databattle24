@@ -6,3 +6,11 @@ services:
       dockerfile: db/Dockerfile
     ports:
       - "3306:3306"
+  chroma:
+    image: chromadb/chroma:latest
+    environment:
+      - CHROMA_HOST_PORT=8001
+    volumes:
+      - ./emb/chromadb:/chroma/.chroma/index
+    ports:
+      - 8001:8001

@@ -1,9 +1,13 @@
 import pandas as pd
 from tqdm import tqdm
-from emb import embeddings, find_answer_to_query, stock_embeddings
+
+import os, sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from emb.embed import embeddings, find_answer_to_query, stock_embeddings
 
 
-DATA_PATH = "../data/solution.csv"
+DATA_PATH = "data/solution.csv"
 LANG = "french"
 #MODEL_NAME = "google-bert/bert-base-multilingual-cased"
 MODEL_NAME = "almanach/camembert-base"
@@ -22,7 +26,7 @@ list_emb = []
 i=0
 for i in tqdm(range(df.shape[0])):
 
-    sol = str(df.iloc[i]['titre']) + ", " + str(df.iloc[i]['definition'])
+    sol = str(df.iloc[i]['titre'])
     
     list_emb.append(embeddings(sol, MODEL_NAME, LANG))
     # if i > 10 :
