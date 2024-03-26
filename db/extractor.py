@@ -115,7 +115,6 @@ class Extractor:
         df_sol_dict.set_index("numsolution", inplace=True)
         # Merge the two dataframes
         df = pd.merge(df_sol, df_sol_dict, on="numsolution", how="right")
-
         # Set the index to "numsolution" and "codelangue" and transform the column "codelangue" to int
         df.set_index("codelangue", append=True, inplace=True)
 
@@ -125,7 +124,7 @@ class Extractor:
         
         return df
 
-    def extract_techno_solution(self) -> pd.DataFrame:
+    def extract_techno_solution(self, to_csv : bool=True) -> pd.DataFrame:
         """
         Extract data from tblsolution and tbltechno tables and save it to a CSV file
         in order to have a list of numsolution and child codetechno for each codetechno
@@ -160,7 +159,8 @@ class Extractor:
         df.columns = ["numtechno", "sous_techno", "solutions"]
         df.set_index("numtechno", inplace=True)
         # Save the result to a CSV file
-        df.to_csv(self.output_path + "/" + CSV_FILENAME)
+        if to_csv:
+            df.to_csv(self.output_path + "/" + CSV_FILENAME)
 
         return df
 

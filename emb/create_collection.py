@@ -53,7 +53,6 @@ def find_meta_ids(list_emb, df_sol, df_sect):
         meta = {}
         for j in range(60):
             meta['secteur'+str(j)] = 0
-            meta['sous_secteur'+str(j)] = 0
 
         sol = df_sol.iloc[i]['numsolution']
         s_secteur = find_sous_secteurs(df_sect, sol)

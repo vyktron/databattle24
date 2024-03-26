@@ -46,7 +46,6 @@ def cosine_similarity(emb1, emb2):
     return similarity.item()
 
 
-
 #return id row of dataframe, the most closest answer
 def find_answer_to_query(query, list_emb, nb_ans, model_name, lang):
 

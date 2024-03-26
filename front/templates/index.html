@@ -45,13 +45,25 @@
             <br>
             <div>
                 <label for="user_input">Entrez votre texte:</label>
-                <textarea id="user_input" name="user_input" rows="4" cols="50"></textarea>
+                <textarea id="user_input" name="user_input" rows="8" cols="50" oninput="updateCharacterCount()"></textarea>
+                <div id="character_count"></div>
             </div>
             <button type="button" onclick="submitForm()">Soumettre</button>
         </div>
         <div class="sidebar">
-            <h2>Solution</h2>
-            <div id="result"></div>
+            <h2>Solutions</h2>
+            <div class="result-container">
+                <table id="result" class="result hidden">
+                    <thead>
+                        <tr>
+                            <th id="r-code">Code</th>
+                            <th id="r-title">Titre</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div id="empty-message">Veuillez soumettre votre requête pour obtenir des solutions correspondantes</div>
         </div>
     </div>
     <div class="centered">
@@ -60,6 +72,23 @@
     </div>
 
     <script>
+        function updateCharacterCount() {
+            var textarea = document.getElementById('user_input');
+            var characterCount = textarea.value.length;
+            var maxCharacterCount = 400;
+            var characterCountElement = document.getElementById('character_count');
+            characterCountElement.textContent = characterCount + '/' + maxCharacterCount;
+            // Change the color of the character count based on the number of characters
+            if (characterCount > maxCharacterCount) {
+                textarea.style.borderColor = '#c95b5b'; characterCountElement.style.fontWeight = 'bold';
+                textarea.style.backgroundColor = '#f0d8d8'; characterCountElement.style.color = '#c95b5b';
+            } else {
+                textarea.style.borderColor = ''; characterCountElement.style.color = '';
+                textarea.style.backgroundColor = ''; characterCountElement.style.fontWeight = '';
+            }
+        }
+        updateCharacterCount(); // Initial update
+
         document.addEventListener("DOMContentLoaded", function() {
         var dropdownOptions = document.querySelectorAll('.options');
         var selectedValue = document.getElementById('selected_value');
@@ -68,9 +97,13 @@
         var subOptions = document.querySelectorAll('.sub-option');
         var clearOption = document.getElementById('clear_option');
         var input = document.getElementById('selected_value');
-        
-        nestedTable.style.display = 'none';
 
+        nestedTable.style.display = 'none';
+        document.addEventListener("click", function(event) {
+            if (!nestedTable.contains(event.target) && !input.contains(event.target)) {
+                nestedTable.style.display = 'none';
+            }
+        });
         toggleButtons.forEach(function(button) {
 
             button.addEventListener('click', function() {
@@ -122,6 +155,25 @@
             var user_input = document.getElementById("user_input").value;
             var selected_option = document.getElementById("selected_value").value;
 
+            // Test if user_input is empty, if so, put the textarea in red
+            if (user_input === "") {
+                document.getElementById("user_input").style.borderColor = "#c95b5b";
+                document.getElementById("user_input").style.backgroundColor = "#f0d8d8";
+                alert("Veuillez entrer un texte");
+                return;
+            } else {
+                document.getElementById("user_input").style.borderColor = "";
+                document.getElementById("user_input").style.backgroundColor = "";
+            }
+
+            // Test if the number of characters in user_input is greater than 1500
+            if (user_input.length > 400) {
+                document.getElementById("user_input").style.borderColor = "#c95b5b";
+                document.getElementById("user_input").style.backgroundColor = "#f0d8d8";
+                alert("Le texte ne doit pas dépasser 400 caractères");
+                return;
+            }
+
             fetch('/submit/', {
                 method: 'POST',
                 headers: {
@@ -131,7 +183,29 @@
             })
             .then(response => response.json())
             .then(data => {
-                document.getElementById("result").innerHTML = data.message;
+                document.getElementById("empty-message").style.display = "none";
+                // Generate tbody rows in the "result" table
+                var resultTable = document.getElementById("result");
+                // Clear the table body
+                resultTable.querySelector("tbody").innerHTML = "";
+
+                // Create a new row for each solution
+                data.solutions.forEach(function(solution) {
+                    var row = document.createElement("tr");
+                    var codeCell = document.createElement("td");
+                    codeCell.innerHTML = '<a href="https://plateforme.kerdos-energy.com/index.php#/sol/' + solution.code + '" target="_blank" style="color: #4caf50;"><img src="static/k_vert.png">' + solution.code + '</a>';
+                    var titleCell = document.createElement("td");
+                    titleCell.textContent = solution.title;
+                    row.appendChild(codeCell);
+                    row.appendChild(titleCell);
+
+                    codeCell.setAttribute("id", "r-code");
+                    titleCell.setAttribute("id", "r-title");
+                    resultTable.querySelector("tbody").appendChild(row);
+                });
+
+                // Show the "result" table
+                resultTable.classList.remove("hidden");
             })
             .catch(error => console.error('Erreur :', error));
         }

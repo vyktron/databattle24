@@ -59,9 +59,9 @@ query_emb = embeddings(QUERY[4], MODEL_NAME, LANG)
 chclient = ChromaClient()
 
 #get ids of sol
-ids_filterd, ids = chclient.query_to_sol(query_emb, 50, 56, 20)
+ids_ssec_filtered, ids_sect_filtered, ids = chclient.query_to_sol(query_emb, 50, 56, 20)
 
-print(ids_filterd, ids)
+print(ids_ssec_filtered, ids_sect_filtered, ids)
 
 print("query : ", QUERY[4])
 j = 1
@@ -70,11 +70,23 @@ for i in ids:
     print("answer ", j, " : sol n" + str(i) + " ", df_sol.loc[df_sol['numsolution'] == i, 'titre'].values[0])
     j += 1
 
+print(50*"-")
+
 j = 1
-for i in ids_filterd:
+for i in ids_ssec_filtered:
+    i = int(i)
+    print("answer filtered ", j, " : sol n" + str(i) + " ", df_sol.loc[df_sol['numsolution'] == i, 'titre'].values[0])
+    j += 1
+
+print(50*"-")
+
+j = 1
+for i in ids_sect_filtered:
     i = int(i)
     print("answer filtered ", j, " : sol n" + str(i) + " ", df_sol.loc[df_sol['numsolution'] == i, 'titre'].values[0])
     j += 1
 
 
 print(chclient.collection.get("719"))
+
+print(chclient.sort_by_score(ids_ssec_filtered, ids_sect_filtered, ids))
