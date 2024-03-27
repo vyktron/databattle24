@@ -8,6 +8,7 @@ from emb.chroma_client import ChromaClient
 from emb.embed import embeddings
 
 from calcul.tri_solution import calcul_rentabilite, filtre
+from calcul.BoW import lien_Bow
 
 chrclient = ChromaClient(reset=True)
 extractor = Extractor()
@@ -22,6 +23,13 @@ df_sol_fr.reset_index(inplace=True)
 # Set the index to "numsolution"
 df_sol_fr.set_index("numsolution", inplace=True)
 df_sol_fr = df_sol_fr[df_sol_fr['codelangue'] == 2]
+
+df_techno = extractor.extract_dictionnaire("tec", "technologie")
+# Keep only french technologies
+df_techno.reset_index(inplace=True)
+# Set the index to "numtechnologie"
+df_techno.set_index("numtechnologie", inplace=True)
+df_techno_fr = df_techno[df_techno['codelangue'] == 2]
 
 #function who return a dictionnary with name and code of the sector
 def get_sectors():
@@ -90,9 +98,17 @@ def get_solutions_info_by_id(ids : list) -> dict:
     solutions = []
     for i in ids:
         solutions.append(get_solution_info_by_id(i, cost_gain_dict, filters))
-        
+
     print(solutions)
     return solutions
 
-# x=get_name()
-# print(x)
+def bag_of_words(query : str, lang : int=2):
+    technos = lien_Bow(query, lang)
+
+    techno_dict = {}
+    for t in technos:
+        # Get the index of the technology corresponding to the "titre" in the dataframe
+        num = df_techno_fr[df_techno_fr["titre"] == t].index[0]
+        techno_dict[num] = t
+
+    return technos

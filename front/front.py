@@ -7,7 +7,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-from utils import get_sectors, find_best_solutions, get_solutions_info_by_id
+from utils import get_sectors, find_best_solutions, get_solutions_info_by_id, bag_of_words
 
 import uvicorn
 
@@ -53,9 +53,21 @@ async def submit_form(dict_data: dict):
     best_solutions = find_best_solutions(user_input, sub_sector_number, sector_number, 20)
 
     best_solutions = get_solutions_info_by_id(best_solutions)
-    
+
     # Return the best solutions in the message
     return {"solutions": best_solutions}
+
+# Function to run a Bag of Words model on the user input to detect technologies in it
+@app.post("/bow/")
+async def bow(dict_data: dict):
+
+    user_input = dict_data.get('user_input')
+
+    # Run the Bag of Words model
+    technos = bag_of_words(user_input)
+
+    # Return the technologies found
+    return {"data": technos}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)

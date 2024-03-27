@@ -5,8 +5,11 @@ from sklearn.feature_extraction.text import CountVectorizer
 import pandas as pd
 import joblib
 
+import os, sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 def BoW_csv(langue):
-    df = pd.read_csv('./data/technologie.csv')
+    df = pd.read_csv('data/technologie.csv')
     liste_tech = df[(df['codelangue'] == int(langue)) & (df['titre'])]
 
     technologies = []
@@ -18,13 +21,13 @@ def BoW_csv(langue):
     entrainement = X_train.toarray()
     joblib.dump((vectorizer, entrainement), 'BoW.joblib')
 
-    # df_Bow = pd.DataFrame(entrainement)
-    # df_Bow.to_csv("BoW.csv", index=False)
+    df_Bow = pd.DataFrame(entrainement)
+    df_Bow.to_csv("data/BoW.csv", index=False)
 
 
 def lien_Bow(new_sentence, langue):
 
-    df = pd.read_csv('BoW.csv')
+    df = pd.read_csv('data/BoW.csv')
     entrainement = []
     for i in range(len(df)):
         entrainement.append(list(df.iloc[i]))
@@ -43,7 +46,7 @@ def lien_Bow(new_sentence, langue):
             result.append(j)
 
     tech_reliees = []
-    df = pd.read_csv('./data/technologie.csv')
+    df = pd.read_csv('data/technologie.csv')
     liste_tech = df[(df['codelangue'] == int(langue)) & (df['titre'])]
     if(result != []):
         for x in result:
@@ -56,8 +59,8 @@ def lien_Bow(new_sentence, langue):
     return(tech_reliees)
 
 # new_sentence = "J'aimerais avoir une aide au management (ISO 50 001)"
-new_sentence = "Panneau solaire"
-BoW_csv(2)
-techs = list(lien_Bow(new_sentence, 2))
-for x in techs:
-    print(x)
+# new_sentence = "Panneau solaire"
+#BoW_csv(2)
+# techs = list(lien_Bow(new_sentence, 2))
+# for x in techs:
+#     print(x)

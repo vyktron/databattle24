@@ -4,7 +4,6 @@ import ast
 import pandas as pd
 
 
-
 def find_sous_secteurs(df, sol):
 
     #get all sous_secteur
