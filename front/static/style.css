@@ -258,11 +258,12 @@ div.result-container tbody tr {
 }
 
 #r-filtre {
-    width: 700px;
+    width: 850px;
+    user-select: none;
 }
 
 th#r-filtre  span {
-    margin-inline: 20px;
+    margin-inline: 30px;
     cursor: pointer;
 }
 
@@ -270,8 +271,7 @@ th#r-filtre  span {
     font-weight: normal;
     color: #4caf50;
 }
-#f-energie:hover,
-#f-energie:active {
+#f-energie:hover {
     font-weight: bold;
     color: #45a049;
 }
@@ -280,8 +280,7 @@ th#r-filtre  span {
     font-weight: normal;
     color: #d8a601;
 }
-#f-finance:hover,
-#f-finance:active {
+#f-finance:hover {
     font-weight: bold;
     color: #d8a601;
 }
@@ -291,8 +290,7 @@ th#r-filtre  span {
     color: #8a2a8d;
 }
 
-#f-ges:hover,
-#f-ges:active {
+#f-ges:hover {
     font-weight: bold;
     color: #7d2680;
 }
@@ -301,8 +299,7 @@ th#r-filtre  span {
     font-weight: normal;
     color: #c95b5b;
 }
-#f-cout:hover,
-#f-cout:active {
+#f-cout:hover {
     font-weight: bold;
     color: #b84949;
 }
@@ -310,14 +307,13 @@ th#r-filtre  span {
 #f-nb-rex {
     font-weight: normal;
 }
-#f-nb-rex:hover,
-#f-nb-rex:active {
+#f-nb-rex:hover {
     font-weight: bold;
 }
 
 div.result-container thead {
     margin-top: -10px;
-    height: 20px;
+    height: 30px;
     width: 100%;
     border-bottom: 2px solid #949494;
 }
@@ -327,6 +323,10 @@ div.result-container thead {
 }
 td#r-code {
     color: #5baa26;
+}
+
+td#r-title {
+    width: 890px;
 }
 
 div.result-container tbody {

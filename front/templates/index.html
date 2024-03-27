@@ -59,10 +59,11 @@
                             <th id="r-code">Code</th>
                             <th id="r-title">Titre</th>
                             <th id="r-filtre"><span id="f-energie" onclick="filterBy(0)">Energie <img src="static/down_fill.svg" class="arrow-icon hidden" width="15" height="15"></span>
-                            <span id="f-finance" onclick="filterBy(1)">Finance</span>
-                            <span id="f-ges" onclick="filterBy(2)">GES</span>
-                            <span id="f-cout" onclick="filterBy(3)">Coût</span>
-                            <span id="f-nb-rex" onclick="filterBy(4)">Nb rex</span></th>
+                            <span id="f-finance" onclick="filterBy(1)">Finance <img src="static/down_fill.svg" class="arrow-icon hidden" width="15" height="15"></span>
+                            <span id="f-ges" onclick="filterBy(2)">GES <img src="static/down_fill.svg" class="arrow-icon hidden" width="15" height="15"></span>
+                            <span id="f-cout" onclick="filterBy(3)">Coût <img src="static/down_fill.svg" class="arrow-icon hidden" width="15" height="15"></span>
+                            <span id="f-nb-rex" onclick="filterBy(4)">Nb rex <img src="static/down_fill.svg" class="arrow-icon hidden" width="15" height="15"></span></th>
+                            <th>RLHF</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -75,6 +76,48 @@
     <script>
 
         var solutions = [];
+        var solution_embed_rank = [];
+        var currentFilter = -1;
+        var inDescendingOrder = true;
+
+        function filterByRank() {
+
+            var breaking_point_cost = 20
+            // Use the "ranks" keys in the solutions to sort the solutions by the current filter and order
+            if (currentFilter === 3 && inDescendingOrder) {
+                // Get the breaking point cost
+                solutions.forEach(function(solution) {
+                    if (solution.data[3]>=0 && solution.ranks[3] < breaking_point_cost) {
+                        breaking_point_cost = solution.ranks[3]
+                    }
+                });
+            }
+            // For each solution get the rank value of the current filter
+            var sortedSolutions = []
+            solutions.forEach(function(solution) {
+                // Create a list of zeros with the same length as the number of solutions
+                sortedSolutions.push(0)
+            });
+            solutions.forEach(function(solution) {
+                // Add the tuple (solution, rank) to the ranks list
+                rank = solution.ranks[currentFilter]
+                // Put solution in the correct position in the sortedSolutions list
+                if (!inDescendingOrder) {
+                    rank = solutions.length - rank - 1
+                }
+                if (currentFilter === 3 && inDescendingOrder) {
+                    if (solution.data[3] < 0) {
+                        rank = solutions.length - rank - 1
+                    }
+                    else {
+                        rank = rank - breaking_point_cost
+                    }
+
+                }
+                sortedSolutions[rank] = solution
+            });
+            return sortedSolutions
+        }
 
         function updateCharacterCount() {
             var textarea = document.getElementById('user_input');
@@ -160,9 +203,56 @@
         var codeCell = document.createElement("td");
         codeCell.innerHTML = '<a href="https://plateforme.kerdos-energy.com/index.php#/sol/' + solution.code + '" target="_blank" style="color: #4caf50;"><img src="static/k_vert.png">' + solution.code + '</a>';
         var titleCell = document.createElement("td");
+        var rlhfCell = document.createElement("td");
+        // Create a div element to hold the RLHF data
+        var rlhfDiv = document.createElement("div");
+        // Add the thumb up icon to the div and thumb down icon
+        var thumbUpIcon = document.createElement("img");
+        thumbUpIcon.src = "static/thumb_up_2_fill.svg";
+        thumbUpIcon.style.width = "20px"; thumbUpIcon.style.height = "20px";
+        thumbUpIcon.setAttribute("class", "thumb-up");
+        var thumbDownIcon = document.createElement("img");
+        thumbDownIcon.src = "static/thumb_down_2_fill.svg";
+        thumbDownIcon.setAttribute("class", "thumb-down");
+        // filter it to green when clicking on it
+        thumbDownIcon.addEventListener("click", function() {
+            if (!thumbDownIcon.classList.contains("active")) {
+                thumbDownIcon.classList.add("active");
+                thumbDownIcon.style.filter = "brightness(0) saturate(100%) invert(22%) sepia(84%) saturate(2547%) hue-rotate(348deg) brightness(82%) contrast(87%)";
+                if (thumbUpIcon.classList.contains("active")) {
+                    thumbUpIcon.classList.remove("active");
+                    thumbUpIcon.style.filter = "none";
+                }
+            }
+            else {
+                thumbDownIcon.classList.remove("active");
+                thumbDownIcon.style.filter = "none";
+            }
+        });
+        // filter it to green when clicking on it
+        thumbUpIcon.addEventListener("click", function() {
+            if (!thumbUpIcon.classList.contains("active")) {
+                thumbUpIcon.classList.add("active");
+                thumbUpIcon.style.filter = "brightness(0) saturate(100%) invert(51%) sepia(99%) saturate(461%) hue-rotate(74deg) brightness(95%) contrast(88%)";
+                if (thumbDownIcon.classList.contains("active")) {
+                    thumbDownIcon.classList.remove("active");
+                    thumbDownIcon.style.filter = "none";
+                }
+            }
+            else {
+                thumbUpIcon.classList.remove("active");
+                thumbUpIcon.style.filter = "none";
+            }
+        });
+        thumbDownIcon.style.width = "20px"; thumbDownIcon.style.height = "20px";
+        rlhfDiv.appendChild(thumbUpIcon);
+        rlhfDiv.appendChild(thumbDownIcon);
+        rlhfCell.appendChild(rlhfDiv);
+        
         titleCell.textContent = solution.title;
         row.appendChild(codeCell);
         row.appendChild(titleCell);
+        row.appendChild(rlhfCell);
         
         // Create a single row for the entire list
         var subRow = document.createElement("tr");
@@ -176,21 +266,27 @@
         for (var i = 0; i < solution.data.length; i++) {
             // info about the data depends on the index
             var info = ""; var unit = ""; var color = "";
+            var title = "";
             switch (i) {
                 case 0:
                     info = "Energie:" ; unit = "€e/€"; color = "#4caf50";
+                    title = "Equivalent Energie économiséeen € par € investi\nConfiance : " + solution.confidences[0] + "%"
                     break;
                 case 1:
                     info = "Finance:" ; unit = "€éco./€inv." ; color = "#d8a601";
+                    title = "Gain financier en € par € investi\nConfiance : " + solution.confidences[1] + "%"
                     break;
                 case 2:
                     info = "GES:" ; unit = "kgCO2e/€"; color = "#8a2a8d";
+                    title = "Réduction des émissions de GES en kgCO2e par € investi\nConfiance : " + solution.confidences[2] + "%"
                     break;
                 case 3:
                     info = "Coût:" ; unit = "€"; color = "#c95b5b";
+                    title = "Coût total de la solution en €\nConfiance : " + solution.confidences[3] + "%"
                     break;
                 case 4:
                     info = "Nb rex:" ; unit = "";
+                    title = "Nombre d'études de cas"
                     break;
             }
             var dataSpan = document.createElement("span");
@@ -201,6 +297,8 @@
                 info_str = info + " " + solution.data[i] + " " + unit;
             }
             dataSpan.textContent = info_str;
+            // Add a text to the span that shows when hovering over the data
+            dataSpan.title = title;
             if (i != 0) {
                 var dataVerticalLine = document.createElement("span");
                 dataVerticalLine.textContent = "|";
@@ -223,12 +321,62 @@
         subRow.style.display = "none";
 
         // Add a click event listener to the row
-        row.addEventListener("click", function() {
+        titleCell.addEventListener("click", function() {
             subRow.style.display = subRow.style.display === "none" ? "table-row" : "none";
         });
-        row.style.cursor = "pointer";
+        titleCell.style.cursor = "pointer";
         resultTable.querySelector("tbody").appendChild(row);
         resultTable.querySelector("tbody").appendChild(subRow);
+    }
+    function filterBy(index) {
+        var filter = document.getElementById("f-" + ["energie", "finance", "ges", "cout", "nb-rex"][index]);
+        // Test if the filter is already selected (if it is the current filter and in descending order, then sort in ascending order
+        // if it is the current filter and in ascending order, then hide the filter)
+        if (currentFilter === index) {
+            inDescendingOrder = !inDescendingOrder;
+            if (!inDescendingOrder) {
+                filter.querySelector("img").classList.remove("hidden");
+                filter.style.fontWeight = "bold";
+                // Change the arrow icon to "up-fill.svg"
+                filter.querySelector("img").src = "static/up_fill.svg";
+            } else {
+                filter.querySelector("img").src = "static/down_fill.svg";
+                // Translating the arrow icon to the top
+                filter.querySelector("img").classList.add("hidden");
+                // Set the font weight to normal
+                filter.style.fontWeight = "normal";
+                currentFilter = -1;
+
+                solutions 
+            }
+        } else {
+            // If the filter is not selected, then hide the arrow icon for the current filter
+            if (currentFilter !== -1) {
+                document.getElementById("f-" + ["energie", "finance", "ges", "cout", "nb-rex"][currentFilter]).querySelector("img").classList.add("hidden");
+                document.getElementById("f-" + ["energie", "finance", "ges", "cout", "nb-rex"][currentFilter]).querySelector("img").src = "static/down_fill.svg";
+                document.getElementById("f-" + ["energie", "finance", "ges", "cout", "nb-rex"][currentFilter]).style.fontWeight = "normal";
+                inDescendingOrder = true;
+            }
+            // Set the current filter to the selected filter
+            currentFilter = index;
+            // Show the arrow icon for the selected filter
+            filter.style.fontWeight = "bold";
+            filter.querySelector("img").classList.remove("hidden");
+        }
+
+        if (currentFilter !== -1) {
+            // Sort the solutions by the current filter
+            solutions = filterByRank();
+        }
+        else {
+            solutions = solution_embed_rank;
+        }
+        var resultTable = document.getElementById("result");
+        // Clear the table body
+        resultTable.querySelector("tbody").innerHTML = "";
+        solutions.forEach(function(solution) {
+            display_solution(solution, resultTable);
+        });
     }
     function submitForm() {
         var user_input = document.getElementById("user_input").value;
@@ -269,6 +417,7 @@
             resultTable.querySelector("tbody").innerHTML = "";
 
             solutions = data.solutions
+            solution_embed_rank = data.solutions
             // Create a new row for each solution
             solutions.forEach(function(solution) {
                 display_solution(solution, resultTable);
@@ -276,6 +425,15 @@
 
             // Show the "result" table
             resultTable.classList.remove("hidden");
+            // Hide arrow icons for all filters
+            document.getElementById("f-energie").querySelector("img").classList.add("hidden"); document.getElementById("f-energie").style.fontWeight = "normal";
+            document.getElementById("f-finance").querySelector("img").classList.add("hidden"); document.getElementById("f-finance").style.fontWeight = "normal";
+            document.getElementById("f-ges").querySelector("img").classList.add("hidden"); document.getElementById("f-ges").style.fontWeight = "normal";
+            document.getElementById("f-cout").querySelector("img").classList.add("hidden"); document.getElementById("f-cout").style.fontWeight = "normal";
+            document.getElementById("f-nb-rex").querySelector("img").classList.add("hidden"); document.getElementById("f-nb-rex").style.fontWeight = "normal";
+
+            currentFilter = -1;
+            inDescendingOrder = true;
         })
         .catch(error => console.error('Erreur :', error));
     }

@@ -81,7 +81,7 @@ def calcul_cout_pondere(num_solution):
                 cout_gain += presence_cout
                 
             if(not pd.isna(liste_soluce["ges_gain"].iloc[i])):
-                co2 = liste_soluce["ges_gain"].iloc[i]
+                co2 = liste_soluce["ges_gain"].iloc[i] * 1000
                 nb_co2 += 1
                 cout_co2 += presence_cout
     

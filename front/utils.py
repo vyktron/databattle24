@@ -62,8 +62,9 @@ def find_best_solutions(query : str, ssect : int, sect : int, nb_sol : int):
 
 def get_solution_info_by_id(id_sol : str, cost_gain_dict : dict, filters : list):
 
-    # Get the cost and gain of the solution
-    cost_gain = cost_gain_dict[id_sol]
+    # Get the cost and gain of the solution, first 5 values
+    cost_gain = cost_gain_dict[id_sol][:5]
+    confidences = cost_gain_dict[id_sol][5:]
     # Transform inf to -1
     for i in range(len(cost_gain)):
         if cost_gain[i] == float("inf"):
@@ -73,7 +74,7 @@ def get_solution_info_by_id(id_sol : str, cost_gain_dict : dict, filters : list)
     for f in filters:
         ranks.append(f.index(id_sol))
 
-    return {"code":id_sol, "title":df_sol_fr.loc[int(id_sol)]["titre"], "data":cost_gain, "ranks":ranks}
+    return {"code":id_sol, "title":df_sol_fr.loc[int(id_sol)]["titre"], "data":cost_gain, "ranks":ranks, "confidences":confidences}
 
 def get_solutions_info_by_id(ids : list) -> dict:
 
@@ -89,7 +90,8 @@ def get_solutions_info_by_id(ids : list) -> dict:
     solutions = []
     for i in ids:
         solutions.append(get_solution_info_by_id(i, cost_gain_dict, filters))
-
+        
+    print(solutions)
     return solutions
 
 # x=get_name()

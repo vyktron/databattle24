@@ -165,7 +165,7 @@ class ChromaClient:
         score_map = {}
 
         i = 1.0
-        for res in [res_ssect, res_sect, res]:
+        for res in [res_sect, res, res_ssect]:
             i += 0.25
             for r in res:
                 s = len(res)/i
