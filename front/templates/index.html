@@ -72,10 +72,13 @@
     </div>
 
     <script>
+
+        var solutions = [];
+
         function updateCharacterCount() {
             var textarea = document.getElementById('user_input');
             var characterCount = textarea.value.length;
-            var maxCharacterCount = 400;
+            var maxCharacterCount = 450;
             var characterCountElement = document.getElementById('character_count');
             characterCountElement.textContent = characterCount + '/' + maxCharacterCount;
             // Change the color of the character count based on the number of characters
@@ -151,64 +154,130 @@
             }
         });
     });
-    function submitForm() {
-            var user_input = document.getElementById("user_input").value;
-            var selected_option = document.getElementById("selected_value").value;
-
-            // Test if user_input is empty, if so, put the textarea in red
-            if (user_input === "") {
-                document.getElementById("user_input").style.borderColor = "#c95b5b";
-                document.getElementById("user_input").style.backgroundColor = "#f0d8d8";
-                alert("Veuillez entrer un texte");
-                return;
+    function display_solution(solution, resultTable) {
+        var row = document.createElement("tr");
+        var codeCell = document.createElement("td");
+        codeCell.innerHTML = '<a href="https://plateforme.kerdos-energy.com/index.php#/sol/' + solution.code + '" target="_blank" style="color: #4caf50;"><img src="static/k_vert.png">' + solution.code + '</a>';
+        var titleCell = document.createElement("td");
+        titleCell.textContent = solution.title;
+        row.appendChild(codeCell);
+        row.appendChild(titleCell);
+        
+        // Create a single row for the entire list
+        var subRow = document.createElement("tr");
+        subCodeCell = document.createElement("td");
+        var dataCell = document.createElement("td");
+        // Create a div element to hold the data
+        var dataDiv = document.createElement("div");
+        // Display data inlined
+        dataDiv.style.display = "inline";
+        // Add the data to the div
+        for (var i = 0; i < solution.data.length; i++) {
+            // info about the data depends on the index
+            var info = ""; var unit = ""; var color = "";
+            switch (i) {
+                case 0:
+                    info = "Energie:" ; unit = "€e/€"; color = "#4caf50";
+                    break;
+                case 1:
+                    info = "Finance:" ; unit = "€éco./€inv." ; color = "#d8a601";
+                    break;
+                case 2:
+                    info = "GES:" ; unit = "tCO2e/€"; color = "#8a2a8d";
+                    break;
+                case 3:
+                    info = "Coût:" ; unit = "€"; color = "#c95b5b";
+                    break;
+                case 4:
+                    info = "Nb rex:" ; unit = "";
+                    break;
+            }
+            var dataSpan = document.createElement("span");
+            var info_str = ""
+            if (solution.data[i] <= 0 && i != 4) {
+                info_str = info + " N/A";
             } else {
-                document.getElementById("user_input").style.borderColor = "";
-                document.getElementById("user_input").style.backgroundColor = "";
+                info_str = info + " " + solution.data[i] + " " + unit;
             }
-
-            // Test if the number of characters in user_input is greater than 1500
-            if (user_input.length > 400) {
-                document.getElementById("user_input").style.borderColor = "#c95b5b";
-                document.getElementById("user_input").style.backgroundColor = "#f0d8d8";
-                alert("Le texte ne doit pas dépasser 400 caractères");
-                return;
+            dataSpan.textContent = info_str;
+            if (i != 0) {
+                var dataVerticalLine = document.createElement("span");
+                dataVerticalLine.textContent = "|";
+                dataVerticalLine.style.margin = "0 10px";
+                dataDiv.appendChild(dataVerticalLine);
             }
-
-            fetch('/submit/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ "user_input": user_input, "selected_option": selected_option })
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById("empty-message").style.display = "none";
-                // Generate tbody rows in the "result" table
-                var resultTable = document.getElementById("result");
-                // Clear the table body
-                resultTable.querySelector("tbody").innerHTML = "";
-
-                // Create a new row for each solution
-                data.solutions.forEach(function(solution) {
-                    var row = document.createElement("tr");
-                    var codeCell = document.createElement("td");
-                    codeCell.innerHTML = '<a href="https://plateforme.kerdos-energy.com/index.php#/sol/' + solution.code + '" target="_blank" style="color: #4caf50;"><img src="static/k_vert.png">' + solution.code + '</a>';
-                    var titleCell = document.createElement("td");
-                    titleCell.textContent = solution.title;
-                    row.appendChild(codeCell);
-                    row.appendChild(titleCell);
-
-                    codeCell.setAttribute("id", "r-code");
-                    titleCell.setAttribute("id", "r-title");
-                    resultTable.querySelector("tbody").appendChild(row);
-                });
-
-                // Show the "result" table
-                resultTable.classList.remove("hidden");
-            })
-            .catch(error => console.error('Erreur :', error));
+            // Set the font size to 14px and font-family to 'Courier New'
+            dataSpan.style.fontSize = "14px"; dataSpan.style.fontFamily = "Courier New"; dataSpan.style.color = color; 
+            dataDiv.appendChild(dataSpan);
         }
+        dataCell.appendChild(dataDiv);
+        subRow.appendChild(subCodeCell);
+        subRow.appendChild(dataCell);
+        
+        row.setAttribute("id", "r-row");
+        codeCell.setAttribute("id", "r-code");
+        subCodeCell.setAttribute("id", "r-code");
+        titleCell.setAttribute("id", "r-title");
+        // Set display to none for the sub-row
+        subRow.style.display = "none";
+
+        // Add a click event listener to the row
+        row.addEventListener("click", function() {
+            subRow.style.display = subRow.style.display === "none" ? "table-row" : "none";
+        });
+
+        resultTable.querySelector("tbody").appendChild(row);
+        resultTable.querySelector("tbody").appendChild(subRow);
+    }
+    function submitForm() {
+        var user_input = document.getElementById("user_input").value;
+        var selected_option = document.getElementById("selected_value").value;
+
+        // Test if user_input is empty, if so, put the textarea in red
+        if (user_input === "") {
+            document.getElementById("user_input").style.borderColor = "#c95b5b";
+            document.getElementById("user_input").style.backgroundColor = "#f0d8d8";
+            alert("Veuillez entrer un texte");
+            return;
+        } else {
+            document.getElementById("user_input").style.borderColor = "";
+            document.getElementById("user_input").style.backgroundColor = "";
+        }
+
+        // Test if the number of characters in user_input is greater than 1500
+        if (user_input.length > 450) {
+            document.getElementById("user_input").style.borderColor = "#c95b5b";
+            document.getElementById("user_input").style.backgroundColor = "#f0d8d8";
+            alert("Le texte ne doit pas dépasser 450 caractères");
+            return;
+        }
+
+        fetch('/submit/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ "user_input": user_input, "selected_option": selected_option })
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("empty-message").style.display = "none";
+            // Generate tbody rows in the "result" table
+            var resultTable = document.getElementById("result");
+            // Clear the table body
+            resultTable.querySelector("tbody").innerHTML = "";
+
+            solutions = data.solutions
+            // Create a new row for each solution
+            solutions.forEach(function(solution) {
+                display_solution(solution, resultTable);
+            });
+
+            // Show the "result" table
+            resultTable.classList.remove("hidden");
+        })
+        .catch(error => console.error('Erreur :', error));
+    }
     </script>
 </body>
 </html>

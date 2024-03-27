@@ -7,7 +7,9 @@ import pandas as pd
 from emb.chroma_client import ChromaClient
 from emb.embed import embeddings
 
-chrclient = ChromaClient()
+from calcul.tri_solution import calcul_rentabilite, filtre
+
+chrclient = ChromaClient(reset=True)
 extractor = Extractor()
 
 LANG = "french"
@@ -58,16 +60,35 @@ def find_best_solutions(query : str, ssect : int, sect : int, nb_sol : int):
     # Sort the solutions by score
     return chrclient.sort_by_score(ids_ssec_filtered, ids_sect_filtered, ids)
 
-def get_solution_info_by_id(id_sol : int):
+def get_solution_info_by_id(id_sol : str, cost_gain_dict : dict, filters : list):
 
-    sol_title = df_sol_fr.loc[id_sol]["titre"]
-    return sol_title
+    # Get the cost and gain of the solution
+    cost_gain = cost_gain_dict[id_sol]
+    # Transform inf to -1
+    for i in range(len(cost_gain)):
+        if cost_gain[i] == float("inf"):
+            cost_gain[i] = -1
+    # Get the position of the solution in each filter
+    ranks = []
+    for f in filters:
+        ranks.append(f.index(id_sol))
+
+    return {"code":id_sol, "title":df_sol_fr.loc[int(id_sol)]["titre"], "data":cost_gain, "ranks":ranks}
 
 def get_solutions_info_by_id(ids : list) -> dict:
 
+    cost_gain_dict = calcul_rentabilite(ids)
+
+    energy_ids = filtre(cost_gain_dict, 0)
+    financial_ids = filtre(cost_gain_dict, 1)
+    co2_ids = filtre(cost_gain_dict, 2)
+    cost_ids = filtre(cost_gain_dict, 3)
+    nb_app_ids = filtre(cost_gain_dict, 4)
+    filters = [energy_ids, financial_ids, co2_ids, cost_ids, nb_app_ids]
+
     solutions = []
     for i in ids:
-        solutions.append({"code":i, "title":get_solution_info_by_id(int(i))})
+        solutions.append(get_solution_info_by_id(i, cost_gain_dict, filters))
 
     return solutions
 

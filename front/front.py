@@ -53,6 +53,7 @@ async def submit_form(dict_data: dict):
     best_solutions = find_best_solutions(user_input, sub_sector_number, sector_number, 20)
 
     best_solutions = get_solutions_info_by_id(best_solutions)
+    
     # Return the best solutions in the message
     return {"solutions": best_solutions}
 
