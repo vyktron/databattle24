@@ -1,12 +1,9 @@
 import pandas as pd
 import math
 
-PRIX_KWH = 0.2516
-PRIX_EAU = 0.00414
-
 def calcul_rentabilite(liste_solutions):
     valeur = []
-    df = pd.read_csv('../data/donnees_solution.csv')
+    df = pd.read_csv('donnees_solution.csv')
     for x in liste_solutions:
         try:
             valeur.append(list(df[(df['num_solution'] == int(x))].iloc[0]))
@@ -15,18 +12,26 @@ def calcul_rentabilite(liste_solutions):
     data = {}
     for val in valeur:
         temp = []
-        if(val[10] == 0):
+        if(val[8] == 0):
             cout = math.inf
         else:
-            cout = round(val[10], 2)
-        ratio_energetique = round((val[2] * PRIX_KWH + val[4] * PRIX_EAU) / cout, 2)
-        ratio_financier = round(val[6] / cout, 2)
-        ratio_co2 = round(val[8] / cout * 1000, 2)
+            cout = round(val[8], 2)
+        ratio_energetique = val[2]
+        ratio_financier = val[4]
+        ratio_co2 = val[6]
+        taux_energetique = val[3]
+        taux_financier = val[5]
+        taux_co2 = val[7]
+        taux_cout = val[9]
         temp.append(ratio_energetique)
         temp.append(ratio_financier)
         temp.append(ratio_co2)
         temp.append(cout)
         temp.append(val[1])
+        temp.append(taux_energetique)
+        temp.append(taux_financier)
+        temp.append(taux_co2)
+        temp.append(taux_cout)
         data[str(int(val[0]))] = temp
     return(data)
 
