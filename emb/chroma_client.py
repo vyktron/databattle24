@@ -28,45 +28,55 @@ class ChromaClient:
     def find_sub_sector(self, df, sol):
         # get all sub_sectors
         df_ss = df[df['sous_secteurs'].isnull()]
-        s_secteur = "null"
+        s_secteur = []
 
-        # Find the sub_sector of the solution
+        # find the sub-sectors of the solution
         for i in range(len(df_ss)):
-            if not isinstance(df_ss.iloc[i]["solutions"], float):
-                if sol in df_ss.iloc[i]['solutions']:
-                    s_secteur = df_ss.iloc[i]['numsecteur']
+            if not isinstance(df_ss.iloc[i]["solutions"], float): # check if the value is not NaN => float
+                sect = df_ss.iloc[i]['numsecteur']
+                if sol in df_ss.iloc[i]['solutions'] and sect not in s_secteur:
+                    s_secteur.append(sect)
 
         return s_secteur
 
     def find_sector(self, df, s_secteur):
         # get all secteur:
         df_s = df.dropna(subset=['sous_secteurs'])
-        secteur = s_secteur
+        secteur = []
 
-        # find if there are a grandparent
-        for i in range(len(df_s)):
-            if s_secteur in df_s.iloc[i]['sous_secteurs']:
-                secteur = df_s.iloc[i]['numsecteur']
+        #find is there are a grandparent
+        for j in range(len(s_secteur)):
+            secteur.append(s_secteur[j])
+            for i in range(len(df_s)):
+                if s_secteur[j] in df_s.iloc[i]['sous_secteurs']:
+                    secteur[j] = df_s.iloc[i]['numsecteur']
 
         return secteur
 
     def find_meta_ids(self, list_emb, df_sol, df_sect):
-        metadatas = []
+        metadata = []
         ids = []
+        
         for i in range(len(list_emb)):
+
+            #initalise metadata to 0
+            meta = {}
+            for j in range(2,60):
+                meta['sec'+str(j)] = 0
+
             sol = df_sol.iloc[i]['numsolution']
             s_secteur = self.find_sub_sector(df_sect, sol)
             secteur = self.find_sector(df_sect, s_secteur)
 
-            meta = {
-                "secteur": str(secteur),
-                "sous_secteur": str(s_secteur)
-            }
+            for sect in secteur:
+                meta['sec'+str(sect)] = 1
+            for s_sect in s_secteur:
+                meta['sec'+str(s_sect)] = 1
 
             ids.append(str(sol))
-            metadatas.append(meta)
+            metadata.append(meta)
 
-        return metadatas, ids
+        return metadata, ids
 
     def build_collection(self, reset : bool):
         """
@@ -112,25 +122,59 @@ class ChromaClient:
         print("Created :", end=" ") ; self.show_collection()
 
 
-    def query_to_sol(self, query_emb, secteur, sous_secteur, n_res):
+    #query as embeddings
+    #secteur, sous_secteur as string
+    #n_res int
+    #collection is chromadb collection
+    #return list of n_res ids filtered and not
+    def query_to_sol(self, query_emb, secteur=None, sous_secteur=None, n_res=10):
 
-        # TODO: Filter the results by sector and sub-sector take care of None values
-        res_filtered = self.collection.query(
+        if secteur == None:
+            secteur = ""
+        if sous_secteur == None:
+            sous_secteur = ""
+
+
+        res_ssect = self.collection.query(
             query_embeddings=query_emb.tolist(),
             n_results=n_res,
             where={
-                "$and": [
-                    {"secteur": str(secteur)},
-                    {"sous_secteur": str(sous_secteur)}
-                ]
+                "sec" + str(sous_secteur): 1
             }
         )
+
+        res_sect = self.collection.query(
+            query_embeddings=query_emb.tolist(),
+            n_results=n_res,
+            where={
+                "sec" + str(secteur): 1
+            }
+        )
+
         res = self.collection.query(
             query_embeddings=query_emb.tolist(),
             n_results=n_res
         )
 
-        return res_filtered['ids'][0], res['ids'][0]
+        return res_ssect['ids'][0], res_sect['ids'][0], res['ids'][0]
+    
+    #return ids of sol with the best score
+    def sort_by_score(self, res_ssect, res_sect, res):
+
+        #score_map {'id': score}
+        score_map = {}
+
+        i = 1.0
+        for res in [res_ssect, res_sect, res]:
+            i += 0.25
+            for r in res:
+                s = len(res)/i
+                if  r in score_map:
+                    score_map[r] = score_map[r] + s
+                else:
+                    score_map[r] = s
+
+        return sorted(score_map.keys(), key=score_map.get, reverse=True)[:len(res)]
 
 if __name__ == "__main__":
     # Test

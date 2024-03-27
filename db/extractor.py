@@ -115,7 +115,6 @@ class Extractor:
         df_sol_dict.set_index("numsolution", inplace=True)
         # Merge the two dataframes
         df = pd.merge(df_sol, df_sol_dict, on="numsolution", how="right")
-
         # Set the index to "numsolution" and "codelangue" and transform the column "codelangue" to int
         df.set_index("codelangue", append=True, inplace=True)
 
@@ -125,7 +124,7 @@ class Extractor:
         
         return df
 
-    def extract_techno_solution(self) -> pd.DataFrame:
+    def extract_techno_solution(self, to_csv : bool=True) -> pd.DataFrame:
         """
         Extract data from tblsolution and tbltechno tables and save it to a CSV file
         in order to have a list of numsolution and child codetechno for each codetechno
@@ -160,7 +159,8 @@ class Extractor:
         df.columns = ["numtechno", "sous_techno", "solutions"]
         df.set_index("numtechno", inplace=True)
         # Save the result to a CSV file
-        df.to_csv(self.output_path + "/" + CSV_FILENAME)
+        if to_csv:
+            df.to_csv(self.output_path + "/" + CSV_FILENAME)
 
         return df
 
@@ -434,15 +434,40 @@ class Extractor:
 
         return df
 
+    def connections_per_day(self) -> float:
+        """ Get the average number of connections per day using the tblconnexion table 
+        
+        Returns:
+        -------
+            float: The average number of connections per day
+        """
+
+        # Select all rows from tblconnexion
+        self.cursor.execute("SELECT numconnexion, login, dateconnexion FROM tblconnexion")
+        data = self.cursor.fetchall()
+        df = pd.DataFrame(data, columns=["numconnexion", "login", "dateconnexion"])
+
+        # Keep only "Visiteur" logins
+        df = df[df["login"] == "Visiteur"]
+        # Get the number of connections per day
+        df["dateconnexion"] = pd.to_datetime(df["dateconnexion"])
+        df["dateconnexion"] = df["dateconnexion"].dt.date
+
+        df = df.groupby("dateconnexion")["numconnexion"].count().reset_index()
+
+        return df["numconnexion"].mean()    
+
 if __name__ == "__main__":
     extractor = Extractor()
-    extractor.extract_solution()
-    extractor.extract_dictionnaire("tec", "technologie") # Technologies
-    extractor.extract_techno_solution()
-    extractor.extract_sectors()
-    df_sol_rex = extractor.extract_solution_rex()
-    extractor.extract_sector_solution(df_sol_rex)
-    df_unit = extractor.extract_dictionnaire_categories("uni", "unite") # Units
-    extractor.extract_dictionnaire_categories("per", "periode") # Periods
-    extractor.extract_monnaie() # Currencies
+    # extractor.extract_solution()
+    # extractor.extract_dictionnaire("tec", "technologie") # Technologies
+    # extractor.extract_techno_solution()
+    # extractor.extract_sectors()
+    # df_sol_rex = extractor.extract_solution_rex()
+    # extractor.extract_sector_solution(df_sol_rex)
+    # df_unit = extractor.extract_dictionnaire_categories("uni", "unite") # Units
+    # extractor.extract_dictionnaire_categories("per", "periode") # Periods
+    # extractor.extract_monnaie() # Currencies
+
+    print(extractor.connections_per_day())
 
