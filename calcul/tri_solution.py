@@ -36,8 +36,5 @@ def calcul_rentabilite(liste_solutions):
 # indice 3 = cout
 # indice 4 = nb application
 def filtre(d, indice):
-    if(indice != 3):
-        sorted_d = dict(sorted(d.items(), key=lambda item: item[1][indice], reverse=True))
-    else:
-        sorted_d = dict(sorted(d.items(), key=lambda item: item[1][indice]))
+    sorted_d = dict(sorted(d.items(), key=lambda item: item[1][indice], reverse=True))
     return(list(sorted_d.keys()))
