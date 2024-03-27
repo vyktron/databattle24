@@ -138,21 +138,34 @@ class DataVisualizer:
         for i in solution_count.values():
             histogram[i] += 1
 
-        mean = sum([i*j for i, j in enumerate(histogram)]) / sum(histogram)
+        nb_missing_solutions = 1100 - len(solution_count)
+        print(nb_missing_solutions)
+        
+        print(histogram)
+        # Get the mean number of numrex per solution (and take care of the missing solutions which have 0 numrex)
+        mean = sum([i*j for i, j in enumerate(histogram)]) / 1100
 
-        # Agregate to have classes width of 5
+        # Agregate to have classes width of 5 and cut the histogram at 50
+        histogram = histogram[:30]
         histogram = [sum(histogram[i:i+5]) for i in range(0, len(histogram), 5)]
         
         plt.axvline(mean, color='r', linestyle='dashed', linewidth=1)
         plt.bar(range(3, 5*len(histogram), 5), histogram, width=4)
-        plt.xlabel('Number of numrex')
-        plt.ylabel('Number of solutions')
-        plt.title('Histogram of number of numrex per solution')
+        plt.xlabel('Nombre de REX')
+        plt.ylabel('Nombre de solutions')
+        plt.title('Histogramme du nombre de REX par solution')
         plt.savefig(self.img_folder + 'solution_rex_hist.png')
         plt.show()
 
 # Usage
 if __name__ == "__main__":
     data_viz = DataVisualizer('viz/img/')
-    data_viz.sector_solution_viz()
+    #data_viz.sector_solution_viz()
     data_viz.solution_rex()
+
+    technology = data_viz.extractor.extract_dictionnaire("tec", "technologie", to_csv=False) # Technologies
+
+    technology.reset_index(inplace=True)
+    print(technology.head())
+    # Count the number of unique technologies
+    print(len(technology['numtechnologie'].unique()))
