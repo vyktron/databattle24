@@ -58,6 +58,11 @@
                         <tr>
                             <th id="r-code">Code</th>
                             <th id="r-title">Titre</th>
+                            <th id="r-filtre"><span id="f-energie" onclick="filterBy(0)">Energie <img src="static/down_fill.svg" class="arrow-icon hidden" width="15" height="15"></span>
+                            <span id="f-finance" onclick="filterBy(1)">Finance</span>
+                            <span id="f-ges" onclick="filterBy(2)">GES</span>
+                            <span id="f-cout" onclick="filterBy(3)">Coût</span>
+                            <span id="f-nb-rex" onclick="filterBy(4)">Nb rex</span></th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -65,10 +70,6 @@
             </div>
             <div id="empty-message">Veuillez soumettre votre requête pour obtenir des solutions correspondantes</div>
         </div>
-    </div>
-    <div class="centered">
-        <label for="budget">Budget:</label>
-        <input type="text" id="budget" name="budget">
     </div>
 
     <script>
@@ -183,7 +184,7 @@
                     info = "Finance:" ; unit = "€éco./€inv." ; color = "#d8a601";
                     break;
                 case 2:
-                    info = "GES:" ; unit = "tCO2e/€"; color = "#8a2a8d";
+                    info = "GES:" ; unit = "kgCO2e/€"; color = "#8a2a8d";
                     break;
                 case 3:
                     info = "Coût:" ; unit = "€"; color = "#c95b5b";
@@ -225,7 +226,7 @@
         row.addEventListener("click", function() {
             subRow.style.display = subRow.style.display === "none" ? "table-row" : "none";
         });
-
+        row.style.cursor = "pointer";
         resultTable.querySelector("tbody").appendChild(row);
         resultTable.querySelector("tbody").appendChild(subRow);
     }

@@ -257,6 +257,64 @@ div.result-container tbody tr {
     border-top: 1px solid #ccc;
 }
 
+#r-filtre {
+    width: 700px;
+}
+
+th#r-filtre  span {
+    margin-inline: 20px;
+    cursor: pointer;
+}
+
+#f-energie {
+    font-weight: normal;
+    color: #4caf50;
+}
+#f-energie:hover,
+#f-energie:active {
+    font-weight: bold;
+    color: #45a049;
+}
+
+#f-finance {
+    font-weight: normal;
+    color: #d8a601;
+}
+#f-finance:hover,
+#f-finance:active {
+    font-weight: bold;
+    color: #d8a601;
+}
+
+#f-ges {
+    font-weight: normal;
+    color: #8a2a8d;
+}
+
+#f-ges:hover,
+#f-ges:active {
+    font-weight: bold;
+    color: #7d2680;
+}
+
+#f-cout {
+    font-weight: normal;
+    color: #c95b5b;
+}
+#f-cout:hover,
+#f-cout:active {
+    font-weight: bold;
+    color: #b84949;
+}
+
+#f-nb-rex {
+    font-weight: normal;
+}
+#f-nb-rex:hover,
+#f-nb-rex:active {
+    font-weight: bold;
+}
+
 div.result-container thead {
     margin-top: -10px;
     height: 20px;
