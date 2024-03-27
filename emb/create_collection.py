@@ -38,10 +38,45 @@ def find_secteur(df, s_secteur):
     return secteur
 
 
+def find_techno_by_sub(df, s_techno, test):
+
+    if s_techno == 1:
+        return test
+    else:
+        for i in range(len(df)):
+            if s_techno in ast.literal_eval(df.iloc[i]['sous_techno']):
+                techno = df.iloc[i]['numtechno']
+                return find_techno_by_sub(df, techno, s_techno)
+                
+        return s_techno
+
+
+def find_grand_techno(df, sol):
+
+    #find sub_techno
+    df_st = df[df['sous_techno'].isnull()]
+
+    s_techno = "null"
+    for i in range(len(df_st)):
+        if not pd.isna(df_st.iloc[i]["solutions"]):
+            if sol in ast.literal_eval(df_st.iloc[i]['solutions']):
+                s_techno = df_st.iloc[i]['numtechno']
+
+    #find grand techno
+    if s_techno != "null":
+        df_t = df.dropna(subset=['sous_techno'])
+        techno = find_techno_by_sub(df_t, s_techno, s_techno)
+
+        return techno
+
+    else:
+        return s_techno
+
+
 
 #return metadata
 #return ids as str (numsolution)
-def find_meta_ids(list_emb, df_sol, df_sect):
+def find_meta_ids(list_emb, df_sol, df_sect, df_tech):
 
     metadata = []
     ids = []
@@ -62,6 +97,10 @@ def find_meta_ids(list_emb, df_sol, df_sect):
         for s_sect in s_secteur:
             meta['sous_secteur'+str(s_sect)] = 1
 
+        #add grand technology metadata
+        techno = find_grand_techno(df_tech, sol)
+        meta['techno'] = str(techno)
+
         ids.append(str(sol))
         metadata.append(meta)
 
@@ -72,12 +111,12 @@ def find_meta_ids(list_emb, df_sol, df_sect):
 #list of all embeddings
 #dataset of all solution in french
 #dataset of all secteur
-def create_collection(list_emb, df_sol, df_sect):
+def create_collection(list_emb, df_sol, df_sect, df_tech):
 
     client = chromadb.Client()
     collection = client.create_collection("embeddings")
 
-    metadatas, ids = find_meta_ids(list_emb, df_sol, df_sect)
+    metadatas, ids = find_meta_ids(list_emb, df_sol, df_sect, df_tech)
     collection.add(
         embeddings=list_emb,
         metadatas=metadatas,
@@ -92,7 +131,7 @@ def create_collection(list_emb, df_sol, df_sect):
 #n_res int
 #collection is chromadb collection
 #return list of n_res ids filtered and not
-def query_to_sol(query_emb, collection, secteur=None, sous_secteur=None, n_res=10):
+def query_to_sol(query_emb, collection, secteur=None, sous_secteur=None, techno=None, n_res=10):
 
     if secteur == None:
         secteur = ""
@@ -116,25 +155,33 @@ def query_to_sol(query_emb, collection, secteur=None, sous_secteur=None, n_res=1
         }
     )
 
+    res_techno = collection.query(
+        query_embeddings=query_emb.tolist(),
+        n_results=n_res,
+        where={
+            "techno": str(techno)
+        }
+    )
+
     res = collection.query(
         query_embeddings=query_emb.tolist(),
         n_results=n_res
     )
 
-    return res_ssect['ids'][0], res_sect['ids'][0], res['ids'][0]
+    return res_ssect['ids'][0], res_sect['ids'][0], res_techno['ids'][0], res['ids'][0]
 
 
 
 #return ids of sol with the best score
-def sort_by_score(res_ssect, res_sect, res):
+def sort_by_score(res_ssect, res_sect, res_techno, res):
 
     #score_map {'id': score}
     score_map = {}
 
-    i = 1.0
-    for res in [res_ssect, res_sect, res]:
-        i += 0.25
-        for r in res:
+    i = 0.9
+    for res_l in [res_techno, res_sect, res, res_ssect]:
+        i += 0.1
+        for r in res_l:
             s = len(res)/i
             if  r in score_map:
                 score_map[r] = score_map[r] + s
