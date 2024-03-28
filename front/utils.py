@@ -59,14 +59,14 @@ def get_sectors():
 
     return list_name
 
-def find_best_solutions(query : str, ssect : int, sect : int, nb_sol : int):
+def find_best_solutions(query : str, ssect : int, sect : int, techno : int, nb_sol : int) -> list:
 
     # Get the embeddings of the query
     query_emb = embeddings(query, MODEL_NAME, LANG)
     # Get the ids of the n-th first solutions filtered by the sub-sector and the sector (and nothing)
-    ids_ssec_filtered, ids_sect_filtered, ids = chrclient.query_to_sol(query_emb, sect, ssect, nb_sol)
+    ids_ssec_filtered, ids_sect_filtered, ids_tech_filtered, ids = chrclient.query_to_sol(query_emb, sect, ssect, techno, nb_sol)
     # Sort the solutions by score
-    return chrclient.sort_by_score(ids_ssec_filtered, ids_sect_filtered, ids)
+    return chrclient.sort_by_score(ids_ssec_filtered, ids_sect_filtered, ids_tech_filtered, ids)
 
 def get_solution_info_by_id(id_sol : str, cost_gain_dict : dict, filters : list):
 
@@ -99,7 +99,6 @@ def get_solutions_info_by_id(ids : list) -> dict:
     for i in ids:
         solutions.append(get_solution_info_by_id(i, cost_gain_dict, filters))
 
-    print(solutions)
     return solutions
 
 def bag_of_words(query : str, lang : int=2):
@@ -109,6 +108,6 @@ def bag_of_words(query : str, lang : int=2):
     for t in technos:
         # Get the index of the technology corresponding to the "titre" in the dataframe
         num = df_techno_fr[df_techno_fr["titre"] == t].index[0]
-        techno_dict[num] = t
+        techno_dict[str(num)] = t
 
-    return technos
+    return techno_dict

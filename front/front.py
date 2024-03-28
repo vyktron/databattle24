@@ -35,6 +35,8 @@ async def submit_form(dict_data: dict):
     user_input = dict_data.get('user_input')
     selected_option = dict_data.get('selected_option')
 
+    techno = int(dict_data.get('techno'))
+
     sector_number = None
     sub_sector_number = None
     # Find the number of the sector assiocated with the selected_option
@@ -50,7 +52,7 @@ async def submit_form(dict_data: dict):
    
 
     # Find the best solutions
-    best_solutions = find_best_solutions(user_input, sub_sector_number, sector_number, 20)
+    best_solutions = find_best_solutions(user_input, sub_sector_number, sector_number, techno, 20)
 
     best_solutions = get_solutions_info_by_id(best_solutions)
 
@@ -66,8 +68,10 @@ async def bow(dict_data: dict):
     # Run the Bag of Words model
     technos = bag_of_words(user_input)
 
+    if len(technos) != 0:
+        print("Technologies found: ", technos)
     # Return the technologies found
-    return {"data": technos}
+    return {"technos_dict": technos}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)

@@ -5,7 +5,7 @@ import os, sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from emb.embed import embeddings, find_answer_to_query, stock_embeddings
-
+import torch
 
 DATA_PATH = "data/solution.csv"
 LANG = "french"
@@ -24,6 +24,14 @@ df = df[df['codelangue'] == 2]
 print("Compute embeddings : ")
 list_emb = []
 i=0
+
+# Keep only french solutions
+solutions = df[df['codelangue'] == 2]
+
+
+list_emb = embeddings(solutions, MODEL_NAME, LANG)
+
+print(list_emb)
 for i in tqdm(range(df.shape[0])):
 
     sol = str(df.iloc[i]['titre'])

@@ -118,6 +118,7 @@ button:hover {
 
 /* Styles for the input field */
 #selected_value {
+    cursor: pointer;
     width: 213px;
     margin-top: 10px;
     padding: 10px;
@@ -231,7 +232,6 @@ textarea {
 }
 
 #character_count {
-    margin-bottom: 25px;
     margin-top: -15px;
     margin-right: 12px;
     text-align: right;
@@ -334,4 +334,35 @@ div.result-container tbody {
     overflow: auto;
     table-layout: fixed;
     max-height: 295px;
+}
+
+.tech-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    max-height: 35px;
+    min-height: 35px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    color: #bdbdbd;
+    vertical-align: middle;
+}
+
+.tech-button {
+    background-color: #f0f8f7;
+    border-radius: 20px;
+    padding: 5px 10px;
+    margin-right: 5px;
+    color: black;
+    display: flex;
+    align-items: center;
+}
+
+.tech-empty {
+    padding-block : 5px;
+}
+.tech-button:hover {
+    cursor: pointer;
+    background-color: #4caf99;
+    color: rgb(255, 255, 255);
 }

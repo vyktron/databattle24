@@ -45,9 +45,12 @@
             <br>
             <div>
                 <label for="user_input">Entrez votre texte:</label>
-                <textarea id="user_input" name="user_input" rows="8" cols="50" oninput="updateCharacterCount()"></textarea>
+                <textarea id="user_input" name="user_input" rows="8" cols="50" oninput="userInputUpdate()"></textarea>
                 <div id="character_count"></div>
             </div>
+            <div class="tech-container">
+                <div class="tech-empty">Aucune technologie détectée</div>
+            </div>            
             <button type="button" onclick="submitForm()">Soumettre</button>
         </div>
         <div class="sidebar">
@@ -63,7 +66,7 @@
                             <span id="f-ges" onclick="filterBy(2)">GES <img src="static/down_fill.svg" class="arrow-icon hidden" width="15" height="15"></span>
                             <span id="f-cout" onclick="filterBy(3)">Coût <img src="static/down_fill.svg" class="arrow-icon hidden" width="15" height="15"></span>
                             <span id="f-nb-rex" onclick="filterBy(4)">Nb rex <img src="static/down_fill.svg" class="arrow-icon hidden" width="15" height="15"></span></th>
-                            <th>RLHF</th>
+                            <th>Avis</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -78,7 +81,10 @@
         var solutions = [];
         var solution_embed_rank = [];
         var currentFilter = -1;
-        var inDescendingOrder = true;
+        var inDescendingOrder = true;   
+        
+        var technos_dict = {};
+        var chosen_techno = "0";
 
         function filterByRank() {
 
@@ -118,7 +124,10 @@
             });
             return sortedSolutions
         }
-
+        async function userInputUpdate() {
+            updateCharacterCount();
+            bagOfWords();
+        }
         function updateCharacterCount() {
             var textarea = document.getElementById('user_input');
             var characterCount = textarea.value.length;
@@ -135,6 +144,62 @@
             }
         }
         updateCharacterCount(); // Initial update
+
+        async function bagOfWords() {
+            var user_input = document.getElementById("user_input").value;
+            var response = await fetch('/bow/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ "user_input": user_input})
+            });
+            var data = await response.json();
+            await create_tech_buttons(data.technos_dict);
+            return
+        }
+
+        async function create_tech_buttons(received_techno_dict) {
+            var tech_container = document.querySelector(".tech-container");
+            if (Object.keys(received_techno_dict).length === 0) {
+                tech_container.innerHTML = "<div class=\"tech-empty\">Aucune technologie détectée</div>";
+                chosen_techno = "0";
+                return;
+            }
+            tech_container.innerHTML = "";
+            technos_dict = received_techno_dict;
+            
+            // Create a button for each technology
+            for (var key in received_techno_dict) {
+                var button = document.createElement("div");
+                button.innerHTML = '<a href="https://plateforme.kerdos-energy.com/index.php#/tec/' + key + '" target="_blank" style="color: #8738a7;"><img src="static/k-violet.png">' + key + '</a>' + "&nbsp" + received_techno_dict[key];
+                button.setAttribute("id", key);
+                button.setAttribute("class", "tech-button");
+                // Add a click event listener to the button
+                button.addEventListener("click", function() {
+                    // Set the button to active
+                    var buttons = document.querySelectorAll(".tech-button");
+                    buttons.forEach(function(button) {
+                        // Reset the background color and text color for all buttons
+                        button.style.backgroundColor = "";
+                        button.style.color = "";
+                    });
+                    // Set the background color and text color for the current button
+                    if (this.style.backgroundColor === "") {
+                        this.style.backgroundColor = "#4caf99";
+                        this.style.color = "rgb(255, 255, 255)";
+                        chosen_techno = this.id;
+                    }
+                    else {
+                        this.style.backgroundColor = "";
+                        this.style.color = "";
+                        chosen_techno = "0";
+                    }
+                });
+            
+                tech_container.appendChild(button);
+            }
+        }
 
         document.addEventListener("DOMContentLoaded", function() {
         var dropdownOptions = document.querySelectorAll('.options');
@@ -270,7 +335,7 @@
             switch (i) {
                 case 0:
                     info = "Energie:" ; unit = "€e/€"; color = "#4caf50";
-                    title = "Equivalent Energie économiséeen € par € investi\nConfiance : " + solution.confidences[0] + "%"
+                    title = "Equivalent Energie économisée en € par € investi\nConfiance : " + solution.confidences[0] + "%"
                     break;
                 case 1:
                     info = "Finance:" ; unit = "€éco./€inv." ; color = "#d8a601";
@@ -406,7 +471,7 @@
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ "user_input": user_input, "selected_option": selected_option })
+            body: JSON.stringify({ "user_input": user_input, "selected_option": selected_option , "techno": chosen_techno})
         })
         .then(response => response.json())
         .then(data => {

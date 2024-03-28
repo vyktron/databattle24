@@ -13,33 +13,23 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 TOKENIZERS_PARALLELISM = True
 
-#embeddings
-def embeddings(sentence, model_name, lang):
-
-    stopword = set(stopwords.words(lang))
-
+def embeddings(solutions, model_name, lang):
     tokenizer = AutoTokenizer.from_pretrained(model_name)
-    model = AutoModel.from_pretrained(model_name, output_attentions=True)
-
-    tokens = tokenizer.tokenize(sentence, max_length=None, truncation=True)
-    filtered_tokens = [x for x in tokens if x not in stopword]
-
-    input_ids = tokenizer.convert_tokens_to_ids(filtered_tokens)
-
+    model = AutoModel.from_pretrained(model_name)
+    encoded_inputs = tokenizer(solutions, padding=True, truncation=True, return_tensors='pt', max_length=512)
     with torch.no_grad():
-        outputs = model(torch.tensor([input_ids]))
-
-    emb = outputs.last_hidden_state[:, 0, :]
-
-    return emb
-
+        outputs = model(**encoded_inputs)
+    embeddings = outputs.last_hidden_state[:, 0, :]
+    embeddings = list(embeddings)
+    embeddings = torch.stack(embeddings)
+    return embeddings
 
 # Compute cosine similarity
 def cosine_similarity(emb1, emb2):
     
     # Normalize embeddings
-    emb1_norm = F.normalize(emb1, p=2, dim=1)
-    emb2_norm = F.normalize(emb2, p=2, dim=1)
+    emb1_norm = F.normalize(emb1, p=2, dim=0)
+    emb2_norm = F.normalize(emb2, p=2, dim=0)
     
     # Compute cosine similarity
     similarity = torch.cosine_similarity(emb1_norm, emb2_norm, dim=1)
