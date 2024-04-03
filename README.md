@@ -1,5 +1,5 @@
 # Data Battle 2024 (IA Pau)
-Github Repository of the IA-Mii Team for the Data Battle 2024 (IA Pau) -> Result : 2nd Place
+Github Repository of the IA-Mii Team for the Data Battle 2024 (IA Pau)  **Result : 2nd Place**
 
 ## DataBase
 
